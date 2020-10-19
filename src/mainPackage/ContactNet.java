@@ -1,14 +1,13 @@
 package mainPackage;
 
 import exceptions.*;
-import user.*;
-import message.*;
-import group.*;
-import dataStructures.*;
+import user.UserSafe;
+import message.Message;
+import group.GroupSafe;
+import dataStructures.Iterator;
 
 public interface ContactNet {
-	
-	
+
 	void insertUser(String login, String name, int age, String address, String profession) 
 			throws UserExists;
 	
@@ -19,8 +18,7 @@ public interface ContactNet {
 	
 	void removeContact(String login1, String login2) 
 			throws UserNotExists, ContactNotExists, ContactNotRemoved;
-	
-	//TODO
+
 	Iterator<UserSafe> listContacts(String login)
 			throws UserNotExists, NoContacts;
 	
@@ -35,8 +33,7 @@ public interface ContactNet {
 	
 	void removeSubscription(String login, String group)
 		throws UserNotExists, GroupNotExists, SubscriptionNotExists;
-	
-	//TODO
+
 	Iterator<UserSafe> listParticipants(String group)
 			throws GroupNotExists, NoParticipants;
 

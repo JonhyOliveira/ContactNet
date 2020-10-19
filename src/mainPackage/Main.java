@@ -1,6 +1,10 @@
 package mainPackage;
 
 import exceptions.*;
+import group.GroupSafe;
+import message.Message;
+import user.UserSafe;
+import dataStructures.*;
 
 import java.util.Scanner;
 
@@ -132,8 +136,7 @@ public class Main {
 		String login = in.nextLine().toUpperCase();
 		in.nextLine();
 		try {
-			//TODO - completar proxima linha
-			//***A VOSSA INTERFACE AQUI*** user = net.showUser(login);
+			UserSafe user = net.showUser(login);
 			System.out.println(user.getLogin() + " " + user.getName() + " "
 					+ user.getAge());
 			System.out.println(user.getAddress() + " " + user.getProfession());
@@ -177,8 +180,7 @@ public class Main {
 		String login = in.nextLine().trim().toUpperCase();
 		in.nextLine();
 		try {
-			//TODO - completar proxima linha
-			//Iterator<*** A VOSSA INTERFACE AQUI ***> it = net.listContacts(login);
+			Iterator<UserSafe> it = net.listContacts(login);
 			printUsers(it);
 		} catch (UserNotExists e) {
 			System.out.println(USER_NOT_EXISTS);
@@ -188,9 +190,9 @@ public class Main {
 	} 
 	
 	//TODO 
-	private static void printUsers(Iterator<*** A VOSSA INTERFACE AQUI ***> users) {
+	private static void printUsers(Iterator<UserSafe> users) {
 		while (users.hasNext()) {
-			*** A VOSSA INTERFACE AQUI *** u = users.next();
+			UserSafe u = users.next();
 			System.out.printf("%s %s\n", u.getLogin(), u.getName());
 		}
 	}
@@ -211,8 +213,7 @@ public class Main {
 		String name = in.nextLine().trim().toUpperCase();
 		in.nextLine();
 		try {
-			//TODO - completar proxima linha
-			//*** A VOSSA INTERFACE AQUI *** g = net.showGroup(name);
+			GroupSafe g = net.showGroup(name);
 			System.out.println(g.getGroupName());
 			System.out.println(g.getDescription());
 		} catch (GroupNotExists e) {
@@ -269,8 +270,7 @@ public class Main {
 		String group = in.nextLine().trim().toUpperCase();
 		in.nextLine();
 		try {
-			//TODO - completar proxima linha
-			//Iterator<*** A VOSSA INTERFACE AQUI***> it = net.listParticipants(group);
+			Iterator<UserSafe> it = net.listParticipants(group);
 			printUsers(it);
 		} catch (GroupNotExists e) {
 			System.out.println(GROUP_NOT_EXISTS);

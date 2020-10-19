@@ -23,11 +23,10 @@ public interface Iterator<E> extends Serializable
     /**
      * Returns the next element in the iteration.
      * @return the next element in the iteration
-     * @throws NoSuchElementException - if call is made without verifying pre-condition
+     * @throws dataStructures.NoSuchElementException - if call is made without verifying pre-condition
      */
     E next( ) throws NoSuchElementException;
 
-    List
 
     /**
      * Restarts the iteration.
