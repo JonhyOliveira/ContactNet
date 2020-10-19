@@ -35,14 +35,14 @@ public interface List<E> extends Serializable
     /**
      * Returns the first element of the list.
      * @return first element in the list
-     * @throws EmptyListException - if size() == 0
+     * @throws NoElementException - if size() == 0
      */
     E getFirst( ) throws NoElementException;
 
     /**
      * Returns the last element of the list.
      * @return last element in the list
-     * @throws EmptyListException - if size() == 0
+     * @throws NoElementException - if size() == 0
      */
     E getLast( ) throws NoElementException;
  
@@ -92,14 +92,14 @@ public interface List<E> extends Serializable
     /**
      * Removes and returns the element at the first position in the list.
      * @return element removed from the first position of the list
-     * @throws EmptyListException - if size() == 0
+     * @throws NoElementException - if size() == 0
      */
     E removeFirst( ) throws NoElementException;
 
     /**
      * Removes and returns the element at the last position in the list.
      * @return element removed from the last position of the list
-     * @throws EmptyListException - if size() == 0
+     * @throws NoElementException - if size() == 0
      */
     E removeLast( ) throws NoElementException;
 

@@ -1,15 +1,11 @@
 package user;
 
-import dataStructures.*;
+import dataStructures.Iterator;
 import exceptions.*;
 import group.GroupInternal;
 import message.Message;
 
-/**
- * For internal use.
- */
-public interface UserInternal extends UserSafe {
-
+public interface UserInternal extends UserSafe{
     /**
      * Subscribes the user to a group
      * @throws SubscriptionExists if the user is already subscribed to the group
@@ -31,6 +27,18 @@ public interface UserInternal extends UserSafe {
      */
     Iterator<UserSafe> listContacts()
         throws NoContacts;
+
+    /**
+     * Adds and sends a message to the user contacts
+     * @param message message to add and send
+     */
+    void sendMessage(Message message);
+
+    /**
+     * Adds a message to the user received messages
+     * @param message message to add
+     */
+    void addMessage(Message message);
 
     /**
      * Requests a lists of the messages received by the user
