@@ -1,19 +1,12 @@
 package mainPackage;
 
+import java.util.Scanner;
+
 import exceptions.*;
 import group.GroupSafe;
 import message.Message;
 import user.UserSafe;
 import dataStructures.*;
-
-import java.util.Scanner;
-
-//TODO
-//import *** OS VOSSOS IMPORTS AQUI ***
-//EX: Se quiserem separar as excepcoes das interfaces e 
-//classes de dominio (cujo pacote se chama network neste exemplo):
-//import network.*;
-//import network.exceptions.*;
 
 public class Main {
 
@@ -68,7 +61,7 @@ public class Main {
 		
 		Scanner in = new Scanner(System.in);
 		String cmd;
-		ContactNet net = null;//TODO = new ContactNetClass();
+		ContactNet net = new ContactNetClass();
 		boolean exit = false;
 		
 		do {
@@ -188,8 +181,7 @@ public class Main {
 			System.out.println(NO_CONTACTS);
 		}
 	} 
-	
-	//TODO 
+
 	private static void printUsers(Iterator<UserSafe> users) {
 		while (users.hasNext()) {
 			UserSafe u = users.next();

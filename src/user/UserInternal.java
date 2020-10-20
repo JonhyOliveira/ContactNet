@@ -21,6 +21,22 @@ public interface UserInternal extends UserSafe{
         throws SubscriptionNotExists;
 
     /**
+     * Adds a contact to the user contact list
+     * @param contact the contact to add
+     * @throws ContactExists if the contact is already in the user contact list
+     */
+    void addContact(UserInternal contact)
+        throws ContactExists;
+
+    /**
+     * Removes a contact from the user contact list
+     * @param contact the contact to remove
+     * @throws ContactNotExists if the contact is not in the user contact list
+     */
+    void removeContact(UserInternal contact)
+        throws ContactNotExists;
+
+    /**
      * Lists the contacts of the user
      * @return an iterator for the contacts of the user
      * @throws NoContacts if the user has no contacts

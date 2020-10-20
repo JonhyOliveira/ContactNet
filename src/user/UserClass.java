@@ -36,6 +36,16 @@ public class UserClass implements UserInternal {
     }
 
     @Override
+    public void addContact(UserInternal contact) throws ContactExists {
+
+    }
+
+    @Override
+    public void removeContact(UserInternal contact) throws ContactNotExists {
+
+    }
+
+    @Override
     public Iterator<UserSafe> listContacts() throws NoContacts {
         return null;
     }
