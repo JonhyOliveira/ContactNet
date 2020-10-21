@@ -1,5 +1,7 @@
 package group;
 
+import dataStructures.Iterator;
+import dataStructures.List;
 import exceptions.NoParticipants;
 import exceptions.SubscriptionExists;
 import exceptions.SubscriptionNotExists;
@@ -7,11 +9,12 @@ import message.Message;
 import user.UserInternal;
 import user.UserSafe;
 
-import java.util.Iterator;
-
 public class GroupClass implements GroupInternal {
 
     private String name, description;
+
+    private List<UserInternal> participants;
+    private List<Message> groupMessages;
 
     public GroupClass(String name, String description) {
         this.name = name;
@@ -20,22 +23,41 @@ public class GroupClass implements GroupInternal {
 
     @Override
     public void subscribeUser(UserInternal user) throws SubscriptionExists {
+        if (participants.find(user) >= 0)
+            throw new SubscriptionExists();
 
+        participants.addFirst(user);
+        user.subscribeGroup(this);
     }
 
     @Override
     public void removeSubscriptionFromUser(UserInternal user) throws SubscriptionNotExists {
+        if (participants.find(user) < 0)
+            throw new SubscriptionNotExists();
 
+        participants.remove(user);
+        user.removeSubscriptionGroup(this);
     }
 
     @Override
     public Iterator<UserSafe> listParticipants() throws NoParticipants {
+        if (participants.size() <= 0)
+            throw new NoParticipants();
+
         return null;
     }
 
     @Override
+    public void addMessage(Message message) {
+        groupMessages.addFirst(message);
+    }
+
+    @Override
     public Iterator<Message> listGroupMessages(UserInternal groupMember) throws SubscriptionNotExists {
-        return null;
+        if (participants.find(groupMember) < 0)
+            throw new SubscriptionNotExists();
+
+        return groupMessages.iterator();
     }
 
     @Override
@@ -47,4 +69,5 @@ public class GroupClass implements GroupInternal {
     public String getDescription() {
         return description;
     }
+
 }

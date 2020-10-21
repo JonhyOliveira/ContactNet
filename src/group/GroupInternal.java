@@ -1,11 +1,10 @@
 package group;
 
+import dataStructures.Iterator;
 import exceptions.*;
 import message.Message;
 import user.UserInternal;
 import user.UserSafe;
-
-import java.util.Iterator;
 
 public interface GroupInternal extends GroupSafe {
 
@@ -34,6 +33,12 @@ public interface GroupInternal extends GroupSafe {
         throws NoParticipants;
 
     /**
+     * Adds a message to the group messages
+     * @param message the message to add
+     */
+    void addMessage(Message message);
+
+    /**
      * Lists the messages from the subscribed users
      * @param groupMember the group member requesting access to the group messages
      * @return an iterator for the group messages
@@ -41,5 +46,6 @@ public interface GroupInternal extends GroupSafe {
      */
     Iterator<Message> listGroupMessages(UserInternal groupMember)
         throws SubscriptionNotExists;
+
 
 }

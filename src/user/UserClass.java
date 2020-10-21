@@ -1,5 +1,6 @@
 package user;
 
+import dataStructures.DoublyLinkedList;
 import dataStructures.Iterator;
 import dataStructures.List;
 import exceptions.*;
@@ -22,42 +23,62 @@ public class UserClass implements UserInternal {
         this.age = age;
         this.address = address;
         this.profession = profession;
+
+        contacts = new DoublyLinkedList<>();
+        groups = new DoublyLinkedList<>();
+        receivedMessages = new DoublyLinkedList<>();
+
     }
 
     @Override
-    public void subscribeGroup(GroupInternal group) throws SubscriptionExists {
+    public void subscribeGroup(GroupInternal group) {
         groups.addFirst(group);
     }
 
     @Override
-    public void removeSubscriptionGroup(GroupInternal group) throws SubscriptionNotExists {
-        if (!groups.remove(group))
-            throw new SubscriptionNotExists();
+    public void removeSubscriptionGroup(GroupInternal group) {
+        groups.remove(group);
     }
 
     @Override
     public void addContact(UserInternal contact) throws ContactExists {
+        if (findContact(contact))
+            throw new ContactExists();
 
+        contacts.addFirst(contact);
     }
 
     @Override
     public void removeContact(UserInternal contact) throws ContactNotExists {
+        if (!findContact(contact))
+            throw new ContactNotExists();
 
+        contacts.remove(contact);
     }
 
     @Override
     public Iterator<UserSafe> listContacts() throws NoContacts {
+        if (contacts.size() <= 0)
+            throw new NoContacts();
+
         return null;
     }
 
     @Override
-    public void sendMessage(Message message) {
+    public void insertMessage(Message message) {
 
-        Iterator<UserInternal> it = contacts.iterator();
-        while (it.hasNext()) {
-            UserInternal contact = it.next();
-            contact.addMessage(message);
+        // send message to the user contacts
+        Iterator<UserInternal> contactsIt = contacts.iterator();
+        while (contactsIt.hasNext()) {
+            contactsIt.next().addMessage(message);
         }
+        // send message to the user groups
+        Iterator<GroupInternal> groupsIt = groups.iterator();
+        while (groupsIt.hasNext()) {
+            groupsIt.next().addMessage(message);
+        }
+
+        // add message to the user messages
         this.addMessage(message);
     }
 
@@ -94,5 +115,18 @@ public class UserClass implements UserInternal {
     @Override
     public String getProfession() {
         return profession;
+    }
+
+    private boolean findContact(UserInternal contact) {
+        Iterator<UserInternal> it = contacts.iterator();
+
+        UserInternal next;
+        while (it.hasNext()) {
+            next = it.next();
+            if (next.equals(contact))
+                return true;
+        }
+
+        return false;
     }
 }

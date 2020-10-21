@@ -2,11 +2,11 @@ package message;
 
 public class MessageClass implements Message {
 
-    private String title, description, URL;
+    private String title, text, URL;
 
-    public MessageClass(String title, String description, String URL) {
+    public MessageClass(String title, String text, String URL) {
         this.title = title;
-        this.description = description;
+        this.text = text;
         this.URL = URL;
     }
 
@@ -17,7 +17,7 @@ public class MessageClass implements Message {
 
     @Override
     public String getDescription() {
-        return description;
+        return text;
     }
 
     @Override

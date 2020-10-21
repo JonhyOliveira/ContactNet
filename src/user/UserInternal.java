@@ -48,7 +48,7 @@ public interface UserInternal extends UserSafe{
      * Adds and sends a message to the user contacts
      * @param message message to add and send
      */
-    void sendMessage(Message message);
+    void insertMessage(Message message);
 
     /**
      * Adds a message to the user received messages
