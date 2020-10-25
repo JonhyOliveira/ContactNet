@@ -15,7 +15,6 @@ public class UserClass implements UserInternal {
 
     private List<UserInternal> contacts;
     private List<GroupInternal> groups;
-    private List<UserSafe> contactsSafe;
 
     private List<Message> receivedMessages;
 
@@ -60,17 +59,15 @@ public class UserClass implements UserInternal {
 
     @Override
     public Iterator<UserSafe> listContacts() throws NoContacts {
-    	contactsSafe = new SinglyLinkedList<>();
+    	List <UserSafe> contactsSafe = new SinglyLinkedList<>();
         if (contacts.size() <= 0)
             throw new NoContacts();
         Iterator<UserInternal> itInternal = contacts.iterator();
         while(itInternal.hasNext()) {
-        	contactsSafe.addLast((UserSafe) itInternal.next()); 
+        	contactsSafe.addLast(itInternal.next());
         }
-    		
-    	Iterator<UserSafe> it = contactsSafe.iterator();
 
-        return it;
+        return contactsSafe.iterator();
     }
 
     @Override
@@ -98,6 +95,13 @@ public class UserClass implements UserInternal {
 
     @Override
     public Iterator<Message> listMessages(UserInternal contact) throws ContactNotExists, NoContactMessages {
+
+        if (!findContact(contact))
+            throw new ContactNotExists();
+
+        if (receivedMessages.isEmpty())
+            throw new NoContactMessages();
+
         return receivedMessages.iterator();
     }
 

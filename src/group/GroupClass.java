@@ -17,7 +17,6 @@ public class GroupClass implements GroupInternal {
 
     private List<UserInternal> participants;
     private List<Message> groupMessages;
-    List<UserSafe> participantsSafe;
 
     public GroupClass(String name, String description) {
         this.name = name;
@@ -44,16 +43,15 @@ public class GroupClass implements GroupInternal {
 
     @Override
     public Iterator<UserSafe> listParticipants() throws NoParticipants {
-    	participantsSafe = new SinglyLinkedList<>();
+    	List<UserSafe> participantsSafe = new SinglyLinkedList<>();
         if (participants.size() <= 0)
             throw new NoParticipants();
         Iterator<UserInternal> itInternal = participants.iterator();
         while(itInternal.hasNext())	{
-        	participantsSafe.addLast((UserSafe) itInternal.next());
+        	participantsSafe.addLast(itInternal.next());
         }
-        Iterator<UserSafe> it = participantsSafe.iterator();
-        
-        return it;
+
+        return participantsSafe.iterator();
     }
 
     @Override
