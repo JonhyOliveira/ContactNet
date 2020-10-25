@@ -63,9 +63,11 @@ public class UserClass implements UserInternal {
     	contactsSafe = new SinglyLinkedList<>();
         if (contacts.size() <= 0)
             throw new NoContacts();
-    	for(int i = 0; i < contacts.size(); i++) {
-    		contactsSafe.addLast((UserSafe) contacts.get(i)); 
+        Iterator<UserInternal> itInternal = contacts.iterator();
+        while(itInternal.hasNext()) {
+        	contactsSafe.addLast((UserSafe) itInternal.next()); 
         }
+    		
     	Iterator<UserSafe> it = contactsSafe.iterator();
 
         return it;

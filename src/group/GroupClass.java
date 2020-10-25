@@ -47,8 +47,9 @@ public class GroupClass implements GroupInternal {
     	participantsSafe = new SinglyLinkedList<>();
         if (participants.size() <= 0)
             throw new NoParticipants();
-        for(int i = 0; i < participants.size(); i++) {
-        	participantsSafe.addLast((UserSafe) participants.get(i));
+        Iterator<UserInternal> itInternal = participants.iterator();
+        while(itInternal.hasNext())	{
+        	participantsSafe.addLast((UserSafe) itInternal.next());
         }
         Iterator<UserSafe> it = participantsSafe.iterator();
         
