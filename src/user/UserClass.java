@@ -3,6 +3,7 @@ package user;
 import dataStructures.DoublyLinkedList;
 import dataStructures.Iterator;
 import dataStructures.List;
+import dataStructures.SinglyLinkedList;
 import exceptions.*;
 import group.GroupInternal;
 import message.Message;
@@ -14,6 +15,7 @@ public class UserClass implements UserInternal {
 
     private List<UserInternal> contacts;
     private List<GroupInternal> groups;
+    private List<UserSafe> contactsSafe;
 
     private List<Message> receivedMessages;
 
@@ -58,10 +60,15 @@ public class UserClass implements UserInternal {
 
     @Override
     public Iterator<UserSafe> listContacts() throws NoContacts {
+    	contactsSafe = new SinglyLinkedList<>();
         if (contacts.size() <= 0)
             throw new NoContacts();
+    	for(int i = 0; i < contacts.size(); i++) {
+    		contactsSafe.addLast((UserSafe) contacts.get(i)); 
+        }
+    	Iterator<UserSafe> it = contactsSafe.iterator();
 
-        return null;
+        return it;
     }
 
     @Override
