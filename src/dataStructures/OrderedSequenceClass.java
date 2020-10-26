@@ -10,13 +10,25 @@ public class OrderedSequenceClass<E extends Comparable<E>> implements OrderedSeq
 
     @Override
     public void insert(E element) {
-        Iterator<E> it = sequence.iterator();
-        if (sequence)
+        if (sequence.isEmpty())
+            sequence.addFirst(element);
+        else {
+            Iterator<E> it = sequence.iterator();
+            int pos = 0;
+            while(it.hasNext()) {
+                if (element.compareTo(it.next()) <= 0)
+                    break;
+                pos++;
+            }
+
+            sequence.add(pos, element);
+        }
+
     }
 
     @Override
     public boolean remove(E element) {
-        return false;
+        return sequence.remove(element);
     }
 
     @Override
@@ -31,6 +43,6 @@ public class OrderedSequenceClass<E extends Comparable<E>> implements OrderedSeq
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return sequence.iterator();
     }
 }
