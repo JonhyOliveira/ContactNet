@@ -43,9 +43,10 @@ public interface GroupInternal extends GroupSafe {
      * @param groupMember the group member requesting access to the group messages
      * @return an iterator for the group messages
      * @throws SubscriptionNotExists if the groupMember is not subscribed
+     * @throws NoGroupMessages if the group has no messages
      */
     Iterator<Message> listGroupMessages(UserInternal groupMember)
-        throws SubscriptionNotExists;
+        throws SubscriptionNotExists, NoGroupMessages;
 
 
 }

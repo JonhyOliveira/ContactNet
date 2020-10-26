@@ -171,15 +171,16 @@ public class ContactNetClass implements ContactNet {
 
     @Override
     public Iterator<Message> listGroupMessages(String group, String login) throws GroupNotExists, UserNotExists, SubscriptionNotExists, NoGroupMessages {
-        UserInternal user = getUser(login);
-
-        if (user == null)
-            throw new UserNotExists();
 
         GroupInternal grp = getGroup(group);
 
         if (grp == null)
             throw new GroupNotExists();
+
+        UserInternal user = getUser(login);
+
+        if (user == null)
+            throw new UserNotExists();
 
         return grp.listGroupMessages(user);
     }

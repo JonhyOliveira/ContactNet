@@ -4,6 +4,7 @@ import dataStructures.DoublyLinkedList;
 import dataStructures.Iterator;
 import dataStructures.List;
 import dataStructures.SinglyLinkedList;
+import exceptions.NoGroupMessages;
 import exceptions.NoParticipants;
 import exceptions.SubscriptionExists;
 import exceptions.SubscriptionNotExists;
@@ -63,9 +64,12 @@ public class GroupClass implements GroupInternal {
     }
 
     @Override
-    public Iterator<Message> listGroupMessages(UserInternal groupMember) throws SubscriptionNotExists {
+    public Iterator<Message> listGroupMessages(UserInternal groupMember) throws SubscriptionNotExists, NoGroupMessages {
         if (participants.find(groupMember) < 0)
             throw new SubscriptionNotExists();
+
+        if (groupMessages.isEmpty())
+            throw new NoGroupMessages();
 
         return groupMessages.iterator();
     }

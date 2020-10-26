@@ -95,6 +95,7 @@ public class DoublyLinkedList<E> implements List<E>  {
 //				return pos;
 //			pos++;
 //		}
+
 		while(i < currentSize && auxNode.getElement() != element) {
 			i++;
 			auxNode = auxNode.getNext();
@@ -137,9 +138,14 @@ public class DoublyLinkedList<E> implements List<E>  {
 	@Override
 	public void addFirst(E element) {
 		DListNode<E> newNode = new DListNode<>(element, null, head);
-		if (head != null)
+
+		if (isEmpty()) // empty
+			head = tail = newNode;
+		else {
 			head.setPrevious(newNode);
-		head = newNode;
+			head = newNode;
+		}
+		currentSize++;
 	}
 
 	@Override
@@ -147,6 +153,7 @@ public class DoublyLinkedList<E> implements List<E>  {
 		DListNode<E> newNode = new DListNode<>(element, tail, null);
 		tail.setNext(newNode);
 		tail = newNode;
+		currentSize++;
 	}
 
 	private void addMiddle(int position, E element) {
@@ -158,6 +165,7 @@ public class DoublyLinkedList<E> implements List<E>  {
 			auxNode.getPrevious().setNext(newNode);
 			auxNode.setPrevious(newNode);
 		}
+		currentSize++;
 	}
 	
 	@Override
@@ -186,6 +194,7 @@ public class DoublyLinkedList<E> implements List<E>  {
 			head = head.getNext();
 			head.setPrevious(null);
 		}
+		currentSize--;
     }
 
 
@@ -212,6 +221,7 @@ public class DoublyLinkedList<E> implements List<E>  {
     		tail = tail.getPrevious();
     		tail.setNext(null);
 		}
+    	currentSize--;
     }
 
 
@@ -235,6 +245,7 @@ public class DoublyLinkedList<E> implements List<E>  {
     {
       	node.getPrevious().setNext(node.getNext());
       	node.getNext().setPrevious(node.getPrevious());
+      	currentSize--;
     }
     
 	private E removeMiddle(int position) {
@@ -274,9 +285,12 @@ public class DoublyLinkedList<E> implements List<E>  {
 
 	private DListNode<E> findNode(E element) {
 
-    	for(DListNode<E> auxNode = head; auxNode.getNext() != null; auxNode = auxNode.getNext())
-			if (auxNode.getElement().equals(element))
-				return auxNode;
+    	DListNode<E> auxNode = head;
+    	while(auxNode != null) {
+    		if (auxNode.getElement().equals(element))
+    			return auxNode;
+    		auxNode = auxNode.getNext();
+		}
     	return null;
 	}
 	

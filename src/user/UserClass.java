@@ -43,7 +43,8 @@ public class UserClass implements UserInternal {
 
     @Override
     public void addContact(UserInternal contact) throws ContactExists {
-        if (findContact(contact))
+
+        if (hasContact(contact) || this.equals(contact))
             throw new ContactExists();
 
         contacts.addFirst(contact);
@@ -51,7 +52,7 @@ public class UserClass implements UserInternal {
 
     @Override
     public void removeContact(UserInternal contact) throws ContactNotExists {
-        if (!findContact(contact))
+        if (!hasContact(contact))
             throw new ContactNotExists();
 
         contacts.remove(contact);
@@ -96,7 +97,7 @@ public class UserClass implements UserInternal {
     @Override
     public Iterator<Message> listMessages(UserInternal contact) throws ContactNotExists, NoContactMessages {
 
-        if (!findContact(contact))
+        if (!hasContact(contact))
             throw new ContactNotExists();
 
         if (receivedMessages.isEmpty())
@@ -130,7 +131,10 @@ public class UserClass implements UserInternal {
         return profession;
     }
 
-    private boolean findContact(UserInternal contact) {
+    private boolean hasContact(UserInternal contact) {
+        if (this.equals(contact))
+            return true;
+
         Iterator<UserInternal> it = contacts.iterator();
 
         UserInternal next;
