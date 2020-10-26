@@ -33,12 +33,23 @@ public class OrderedSequenceClass<E extends Comparable<E>> implements OrderedSeq
 
     @Override
     public boolean contains(E element) {
-        return false;
+    	int index = sequence.find(element);
+    	if (index != -1) {
+    		return true;
+    	}else {
+    		return false;
+    	}
     }
 
     @Override
     public E get(E element) {
-        return null;
+    	int index = sequence.find(element);
+    	if(index == -1) {
+    		return null;
+    	}else {
+    		E elem = sequence.get(index);
+    		return elem;
+    	}
     }
 
     @Override
