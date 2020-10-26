@@ -128,7 +128,8 @@ public class DoublyLinkedList<E> implements List<E>  {
 	@Override
 	public void addFirst(E element) {
 		DListNode<E> newNode = new DListNode<>(element, null, head);
-		head.setPrevious(newNode);
+		if (head != null)
+			head.setPrevious(newNode);
 		head = newNode;
 	}
 

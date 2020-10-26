@@ -21,6 +21,9 @@ public class GroupClass implements GroupInternal {
     public GroupClass(String name, String description) {
         this.name = name;
         this.description = description;
+
+        participants = new DoublyLinkedList<>();
+        groupMessages = new DoublyLinkedList<>();
     }
 
     @Override

@@ -1,0 +1,31 @@
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do grupo referido.
+> Registo de grupo executado.
+> Inexistencia do grupo referido.
+> PEDREIROS
+GRUPO DOS PEDREIROS DE ALMADA
+> Inexistencia do grupo referido.
+> Remocao de grupo executada.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Registo de grupo executado.
+> PROFESSORES
+ASSOCIACAO DOS PROFESSORES DA COSTA DA CAPARICA
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Exception in thread "main" java.lang.NullPointerException
+	at group.GroupClass.listParticipants(GroupClass.java:47)
+	at mainPackage.ContactNetClass.listParticipants(ContactNetClass.java:148)
+	at mainPackage.Main.listParticipants(Main.java:295)
+	at mainPackage.Main.main(Main.java:121)

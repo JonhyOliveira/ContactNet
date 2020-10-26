@@ -1,0 +1,55 @@
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do grupo referido.
+> Registo de grupo executado.
+> Inexistencia do grupo referido.
+> PEDREIROS
+GRUPO DOS PEDREIROS DE ALMADA
+> Inexistencia do grupo referido.
+> Remocao de grupo executada.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Registo de grupo executado.
+> PROFESSORES
+ASSOCIACAO DOS PROFESSORES DA COSTA DA CAPARICA
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia de participantes.
+> Inexistencia de participantes.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Inexistencia do utilizador referido.
+> Registo de utilizador executado.
+> LUISA LUIS ANTONIO 25
+COSTA DE CAPARICA DOCENTE UNIVERSITARIO
+> Existencia do contacto referido.
+> Inexistencia do utilizador referido.
+> Contacto nao pode ser removido.
+> PROFESSORES
+ASSOCIACAO DOS PROFESSORES DA COSTA DA CAPARICA
+> PROFESSORES
+ASSOCIACAO DOS PROFESSORES DA COSTA DA CAPARICA
+> PEDREIROS
+GRUPO DOS PEDREIROS DE ALMADA
+> Remocao de grupo executada.
+> Utilizador ja existente.
+> Contacto nao tem mensagens.
+> Exception in thread "main" java.lang.NullPointerException
+	at dataStructures.DoublyLinkedList.find(DoublyLinkedList.java:92)
+	at group.GroupClass.subscribeUser(GroupClass.java:31)
+	at mainPackage.ContactNetClass.subscribeGroup(ContactNetClass.java:123)
+	at mainPackage.Main.subscribeGroup(Main.java:264)
+	at mainPackage.Main.main(Main.java:117)
