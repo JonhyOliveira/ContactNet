@@ -88,13 +88,22 @@ public class DoublyLinkedList<E> implements List<E>  {
 	@Override
 	public int find(E element) {
 
-		DListNode<E> auxNo = head;
-		for (int pos = 0; auxNo.getNext() != null; auxNo = auxNo.getNext()) {
-			if (auxNo.getElement().equals(element))
-				return pos;
-			pos++;
+		DListNode<E> auxNode = head;
+		int i = 0;
+//		for (int pos = 0; auxNo.getNext() != null; auxNo = auxNo.getNext()) {
+//			if (auxNo.getElement().equals(element))
+//				return pos;
+//			pos++;
+//		}
+		while(i < currentSize && auxNode.getElement() != element) {
+			i++;
+			auxNode = auxNode.getNext();
 		}
-		return -1;
+		if (i == currentSize) {
+			return -1;
+		}else {
+			return i;
+		}
 	}
 
 
