@@ -1,10 +1,10 @@
 package user;
 
-import dataStructures.DoublyLinkedList;
-import dataStructures.Iterator;
-import dataStructures.List;
-import dataStructures.SinglyLinkedList;
-import exceptions.*;
+import dataStructures.*;
+import exceptions.ContactExists;
+import exceptions.ContactNotExists;
+import exceptions.NoContactMessages;
+import exceptions.NoContacts;
 import group.GroupInternal;
 import message.Message;
 
@@ -13,7 +13,7 @@ public class UserClass implements UserInternal {
     private String login, name, address, profession;
     private int age;
 
-    private List<UserInternal> contacts;
+    private OrderedSequence<UserInternal> contacts;
     private List<GroupInternal> groups;
 
     private List<Message> receivedMessages;
@@ -25,7 +25,7 @@ public class UserClass implements UserInternal {
         this.address = address;
         this.profession = profession;
 
-        contacts = new DoublyLinkedList<>();
+        contacts = new OrderedSequenceClass<>();
         groups = new DoublyLinkedList<>();
         receivedMessages = new DoublyLinkedList<>();
 
@@ -47,7 +47,7 @@ public class UserClass implements UserInternal {
         if (hasContact(contact) || this.equals(contact))
             throw new ContactExists();
 
-        contacts.addFirst(contact);
+        contacts.insert(contact);
     }
 
     @Override
@@ -60,12 +60,12 @@ public class UserClass implements UserInternal {
 
     @Override
     public Iterator<UserSafe> listContacts() throws NoContacts {
-    	List <UserSafe> contactsSafe = new SinglyLinkedList<>();
+        List<UserSafe> contactsSafe = new SinglyLinkedList<>();
         if (contacts.size() <= 0)
             throw new NoContacts();
         Iterator<UserInternal> itInternal = contacts.iterator();
-        while(itInternal.hasNext()) {
-        	contactsSafe.addLast(itInternal.next());
+        while (itInternal.hasNext()) {
+            contactsSafe.addLast(itInternal.next());
         }
 
         return contactsSafe.iterator();
@@ -145,5 +145,10 @@ public class UserClass implements UserInternal {
         }
 
         return false;
+    }
+
+    @Override
+    public int compareTo(UserInternal o) {
+        return this.getLogin().compareTo(o.getLogin());
     }
 }

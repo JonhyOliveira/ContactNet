@@ -5,13 +5,14 @@ import exceptions.*;
 import group.GroupInternal;
 import message.Message;
 
-public interface UserInternal extends UserSafe{
+public interface UserInternal extends UserSafe, Comparable<UserInternal> {
     /**
      * Subscribes the user to a group
+     *
      * @throws SubscriptionExists if the user is already subscribed to the group
      */
     void subscribeGroup(GroupInternal group)
-        throws SubscriptionExists;
+            throws SubscriptionExists;
 
     /**
      * Removes the subscription of the user to the group

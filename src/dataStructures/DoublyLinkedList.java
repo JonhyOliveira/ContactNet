@@ -157,14 +157,15 @@ public class DoublyLinkedList<E> implements List<E>  {
 	}
 
 	private void addMiddle(int position, E element) {
-		DListNode<E> auxNode=getNode(position);
-		for(int i=1; i<=position; i++) {
-			auxNode = auxNode.getNext();
-			DListNode<E> newNode = new DListNode<>(element, auxNode.getPrevious(), auxNode);
+		DListNode<E> auxNode = getNode(position); // Node in position
 
-			auxNode.getPrevious().setNext(newNode);
-			auxNode.setPrevious(newNode);
-		}
+		DListNode<E> newNode = new DListNode<>(element, auxNode.getPrevious(), auxNode); // Node to add
+
+		// Puts newNode in auxNode position
+		auxNode.getPrevious().setNext(newNode);
+		// Pushes next nodes
+		auxNode.setPrevious(newNode);
+
 		currentSize++;
 	}
 	
@@ -296,7 +297,7 @@ public class DoublyLinkedList<E> implements List<E>  {
 	
 	@Override
 	public Iterator<E> iterator() {
-		return new DoublyLLIterator<E>(head,tail);
+		return new DoublyLLIterator<>(head, tail);
 	}
 
     /**

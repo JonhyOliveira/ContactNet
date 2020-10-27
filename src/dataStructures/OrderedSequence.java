@@ -24,10 +24,16 @@ public interface OrderedSequence<E extends Comparable<E>> {
 
     /**
      * Returns the element if it could be found
+     *
      * @param element the element to find
      * @return the element found or null if it was not found
      */
     E get(E element);
+
+    /**
+     * @return the number of elements in the sequence
+     */
+    int size();
 
     /**
      * @return an ordered iterator

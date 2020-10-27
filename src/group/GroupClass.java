@@ -1,9 +1,6 @@
 package group;
 
-import dataStructures.DoublyLinkedList;
-import dataStructures.Iterator;
-import dataStructures.List;
-import dataStructures.SinglyLinkedList;
+import dataStructures.*;
 import exceptions.NoGroupMessages;
 import exceptions.NoParticipants;
 import exceptions.SubscriptionExists;
@@ -16,29 +13,29 @@ public class GroupClass implements GroupInternal {
 
     private String name, description;
 
-    private List<UserInternal> participants;
+    private OrderedSequence<UserInternal> participants;
     private List<Message> groupMessages;
 
     public GroupClass(String name, String description) {
         this.name = name;
         this.description = description;
 
-        participants = new DoublyLinkedList<>();
+        participants = new OrderedSequenceClass<>();
         groupMessages = new DoublyLinkedList<>();
     }
 
     @Override
     public void subscribeUser(UserInternal user) throws SubscriptionExists {
-        if (participants.find(user) >= 0)
+        if (participants.contains(user))
             throw new SubscriptionExists();
 
-        participants.addFirst(user);
+        participants.insert(user);
         user.subscribeGroup(this);
     }
 
     @Override
     public void removeSubscriptionFromUser(UserInternal user) throws SubscriptionNotExists {
-        if (participants.find(user) < 0)
+        if (!participants.contains(user))
             throw new SubscriptionNotExists();
 
         participants.remove(user);
@@ -50,6 +47,7 @@ public class GroupClass implements GroupInternal {
     	List<UserSafe> participantsSafe = new SinglyLinkedList<>();
         if (participants.size() <= 0)
             throw new NoParticipants();
+
         Iterator<UserInternal> itInternal = participants.iterator();
         while(itInternal.hasNext())	{
         	participantsSafe.addLast(itInternal.next());
@@ -65,7 +63,7 @@ public class GroupClass implements GroupInternal {
 
     @Override
     public Iterator<Message> listGroupMessages(UserInternal groupMember) throws SubscriptionNotExists, NoGroupMessages {
-        if (participants.find(groupMember) < 0)
+        if (!participants.contains(groupMember))
             throw new SubscriptionNotExists();
 
         if (groupMessages.isEmpty())
