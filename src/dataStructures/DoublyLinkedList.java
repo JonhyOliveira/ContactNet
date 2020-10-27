@@ -300,17 +300,17 @@ public class DoublyLinkedList<E> implements List<E>  {
 		return new DoublyLLIterator<>(head, tail);
 	}
 
-    /**
+    /* TPC
      * Removes all of the elements from the specified list and
      * inserts them at the end of the list (in proper sequence).
      * @param list - list to be appended to the end of this
-     */
+     *
     public void append( DoublyLinkedList<E> list )
     {
         tail.setNext(list.head);
         list.head.setPrevious(tail);
     }
-
+	*/
 
 
 }
