@@ -11,3 +11,5 @@
 /SubscriptionNotExists.class
 /UserExists.class
 /UserNotExists.class
+/InvalidPositionException.class
+/NoElementException.class

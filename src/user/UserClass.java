@@ -14,8 +14,9 @@ public class UserClass implements UserInternal {
     private int age;
 
     private OrderedSequence<UserInternal> contacts;
+    
     private List<GroupInternal> groups;
-
+    
     private List<Message> receivedMessages;
 
     public UserClass(String login, String name, int age, String address, String profession) {
@@ -28,7 +29,6 @@ public class UserClass implements UserInternal {
         contacts = new OrderedSequenceClass<>();
         groups = new DoublyLinkedList<>();
         receivedMessages = new DoublyLinkedList<>();
-
     }
 
     @Override

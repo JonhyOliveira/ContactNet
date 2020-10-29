@@ -106,7 +106,7 @@ public class Main {
 
 	}
 
-
+	//inserts a user on the system
 	private static void insertUser(Scanner in, ContactNet net) {
 		String login = in.next().toUpperCase();
 		String name = in.nextLine().trim().toUpperCase();
@@ -122,6 +122,7 @@ public class Main {
 		}
 	}
 
+	//shows the details of the user
 	private static void showUser(Scanner in, ContactNet net) {
 		String login = in.next().trim().toUpperCase();
 		in.nextLine();
@@ -136,6 +137,7 @@ public class Main {
 		}
 	}
 
+	// adds the contact to each user contacts
 	private static void insertContact(Scanner in, ContactNet net) {
 		String login1 = in.next().toUpperCase();
 		String login2 = in.next().toUpperCase();
@@ -152,6 +154,7 @@ public class Main {
 		}
 	}
 
+	// removes the contacts from each user contacts
 	private static void removeContact(Scanner in, ContactNet net) {
 		String login1 = in.next().toUpperCase();
 		String login2 = in.next().toUpperCase();
@@ -169,6 +172,7 @@ public class Main {
 		}
 	}
 
+	// lists the contacts from the user given
 	private static void listContacts(Scanner in, ContactNet net) {
 		String login = in.nextLine().trim().toUpperCase();
 		in.nextLine();
@@ -182,6 +186,7 @@ public class Main {
 		}
 	}
 
+	//gets an iterator as an argument and prints it
 	private static void printUsers(Iterator<UserSafe> users) {
 		while (users.hasNext()) {
 			UserSafe u = users.next();
@@ -189,6 +194,7 @@ public class Main {
 		}
 	}
 
+	// inserts a group on the system
 	private static void insertGroup(Scanner in, ContactNet net) {
 		String name = in.nextLine().trim().toUpperCase();
 		String text = in.nextLine().trim().toUpperCase();
@@ -201,6 +207,7 @@ public class Main {
 		}
 	}
 
+	// shows the details of the given group
 	private static void showGroup(Scanner in, ContactNet net) {
 		String name = in.nextLine().trim().toUpperCase();
 		in.nextLine();
@@ -213,6 +220,7 @@ public class Main {
 		}
 	}
 
+	// removes the group given from the system
 	private static void removeGroup(Scanner in, ContactNet net) {
 		String name = in.nextLine().trim().toUpperCase();
 		in.nextLine();
@@ -225,6 +233,7 @@ public class Main {
 
 	}
 
+	// a given user subscribes the given group
 	private static void subscribeGroup(Scanner in, ContactNet net) {
 		String login = in.next().toUpperCase();
 		String group = in.next().toUpperCase();
@@ -243,6 +252,7 @@ public class Main {
 		}
 	}
 
+	// The subscription that the user given has on the given group is cancelled
 	private static void removeSubscription(Scanner in, ContactNet net) {
 		String login = in.next().toUpperCase();
 		String name = in.nextLine().trim().toUpperCase();
@@ -259,6 +269,7 @@ public class Main {
 		}
 	}
 
+	// lists the participants on a given group
 	private static void listParticipants(Scanner in, ContactNet net) {
 		String group = in.nextLine().trim().toUpperCase();
 		in.nextLine();
@@ -272,6 +283,7 @@ public class Main {
 		}
 	}
 
+	// insert a new message on the system
 	private static void insertMessage(Scanner in, ContactNet net) {
 		String login = in.nextLine().trim().toUpperCase();
 		String title = in.nextLine().trim().toUpperCase();
@@ -286,6 +298,7 @@ public class Main {
 		}
 	}
 
+	//lists the messages that were shared between the two users given
 	private static void listContactMessages(Scanner in, ContactNet net) {
 		String login1 = in.next().toUpperCase();
 		String login2 = in.nextLine().trim().toUpperCase();
@@ -302,6 +315,7 @@ public class Main {
 		}
 	}
 
+	// lists the messages that were inserted on a given group
 	private static void listGroupMessages(Scanner in, ContactNet net) {
 		String name = in.next().toUpperCase();
 		String login1 = in.nextLine().trim().toUpperCase();
@@ -319,7 +333,8 @@ public class Main {
 			System.out.println(NO_GROUP_MESSAGES);
 		}
 	}
-
+	
+	// Gets an iterator as an argument and prints it
 	private static void printMessages(Iterator<Message> messages) {
 		while (messages.hasNext()) {
 			Message m = messages.next();
