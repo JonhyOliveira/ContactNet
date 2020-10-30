@@ -1,5 +1,5 @@
 package dataStructures;
-
+//Throws this exception when the user tries to find an element on a data structure but that element is not in there
 public class NoSuchElementException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;

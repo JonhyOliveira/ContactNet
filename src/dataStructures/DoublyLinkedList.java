@@ -90,11 +90,6 @@ public class DoublyLinkedList<E> implements List<E>  {
 
 		DListNode<E> auxNode = head;
 		int i = 0;
-//		for (int pos = 0; auxNo.getNext() != null; auxNo = auxNo.getNext()) {
-//			if (auxNo.getElement().equals(element))
-//				return pos;
-//			pos++;
-//		}
 
 		while(i < currentSize && auxNode.getElement() != element) {
 			i++;
