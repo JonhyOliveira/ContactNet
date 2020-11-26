@@ -1,6 +1,6 @@
 package user;
 
-import dataStructures.Iterator;
+import dataStructures.*;
 import exceptions.*;
 import group.GroupInternal;
 import message.Message;
@@ -42,7 +42,7 @@ public interface UserInternal extends UserSafe, Comparable<UserInternal> {
      * @return an iterator for the contacts of the user
      * @throws NoContacts if the user has no contacts
      */
-    Iterator<UserSafe> listContacts()
+    Iterator<UserInternal> listContacts()
         throws NoContacts;
 
     /**

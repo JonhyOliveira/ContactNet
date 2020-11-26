@@ -75,7 +75,7 @@ public class ContactNetClass implements ContactNet {
         if (user == null)
             throw new UserNotExists();
 
-        return user.listContacts();
+        return makeSafeUserIterator(user.listContacts());
     }
 
     @Override
@@ -145,7 +145,7 @@ public class ContactNetClass implements ContactNet {
         if (grp == null)
             throw new GroupNotExists();
 
-        return grp.listParticipants();
+         return makeSafeUserIterator(grp.listParticipants());
     }
 
     @Override
@@ -209,5 +209,20 @@ public class ContactNetClass implements ContactNet {
         }
 
         return null;
+    }
+
+    /**
+     * Converts a UserInternal iterator into a UserSafe iterator which is safe to pass to
+     * any user
+     * @param userIterator the UserInternal iterator to convert
+     * @return the converted iterator
+     */
+    private Iterator<UserSafe> makeSafeUserIterator(Iterator<UserInternal> userIterator) {
+        List<UserSafe> contactsSafe = new SinglyLinkedList<>();
+
+        while (userIterator.hasNext())
+            contactsSafe.addLast(userIterator.next());
+
+        return contactsSafe.iterator();
     }
 }

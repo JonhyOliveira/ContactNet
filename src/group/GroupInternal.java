@@ -29,7 +29,7 @@ public interface GroupInternal extends GroupSafe {
      * @return an iterator for the participants of the group
      * @throws NoParticipants if there are no participants
      */
-    Iterator<UserSafe> listParticipants()
+    Iterator<UserInternal> listParticipants()
         throws NoParticipants;
 
     /**

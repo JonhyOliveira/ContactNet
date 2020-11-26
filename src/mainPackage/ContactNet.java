@@ -1,6 +1,6 @@
 package mainPackage;
 
-import dataStructures.Iterator;
+import dataStructures.*;
 import exceptions.*;
 import group.GroupSafe;
 import message.Message;

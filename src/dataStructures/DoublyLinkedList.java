@@ -88,18 +88,13 @@ public class DoublyLinkedList<E> implements List<E>  {
 	@Override
 	public int find(E element) {
 
-		DListNode<E> auxNode = head;
-		int i = 0;
-
-		while(i < currentSize && auxNode.getElement() != element) {
-			i++;
-			auxNode = auxNode.getNext();
+		DListNode<E> auxNo = head;
+		for (int pos = 0; auxNo != null; auxNo = auxNo.getNext()) {
+			if (auxNo.getElement().equals(element))
+				return pos;
+			pos++;
 		}
-		if (i == currentSize) {
-			return -1;
-		}else {
-			return i;
-		}
+		return -1;
 	}
 
 
@@ -133,40 +128,43 @@ public class DoublyLinkedList<E> implements List<E>  {
 	@Override
 	public void addFirst(E element) {
 		DListNode<E> newNode = new DListNode<>(element, null, head);
-
-		if (isEmpty()) // empty
-			head = tail = newNode;
-		else {
+		if (currentSize != 0)
 			head.setPrevious(newNode);
-			head = newNode;
-		}
+		else
+			tail = newNode;
+		head = newNode;
+
 		currentSize++;
 	}
 
 	@Override
 	public void addLast(E element) {
 		DListNode<E> newNode = new DListNode<>(element, tail, null);
-		tail.setNext(newNode);
+		if (currentSize != 0)
+			tail.setNext(newNode);
+		else
+			head = newNode;
 		tail = newNode;
+
 		currentSize++;
 	}
 
 	private void addMiddle(int position, E element) {
-		DListNode<E> auxNode = getNode(position); // Node in position
+		DListNode<E> auxNode=getNode(position);
+		for(int i=1; i<=position; i++) {
+			auxNode = auxNode.getNext();
+			DListNode<E> newNode = new DListNode<>(element, auxNode.getPrevious(), auxNode);
 
-		DListNode<E> newNode = new DListNode<>(element, auxNode.getPrevious(), auxNode); // Node to add
-
-		// Puts newNode in auxNode position
-		auxNode.getPrevious().setNext(newNode);
-		// Pushes next nodes
-		auxNode.setPrevious(newNode);
+			auxNode.getPrevious().setNext(newNode);
+			auxNode.setPrevious(newNode);
+		}
 
 		currentSize++;
 	}
 	
 	@Override
 	public void add(int position, E element) throws InvalidPositionException {
-		if (position<0 || position >currentSize) 
+		if (position<0 || position>currentSize)
 			throw new InvalidPositionException();
 		if (position==0) 
 			addFirst(element);
@@ -190,7 +188,6 @@ public class DoublyLinkedList<E> implements List<E>  {
 			head = head.getNext();
 			head.setPrevious(null);
 		}
-		currentSize--;
     }
 
 
@@ -217,7 +214,6 @@ public class DoublyLinkedList<E> implements List<E>  {
     		tail = tail.getPrevious();
     		tail.setNext(null);
 		}
-    	currentSize--;
     }
 
 
@@ -241,7 +237,6 @@ public class DoublyLinkedList<E> implements List<E>  {
     {
       	node.getPrevious().setNext(node.getNext());
       	node.getNext().setPrevious(node.getPrevious());
-      	currentSize--;
     }
     
 	private E removeMiddle(int position) {
@@ -281,31 +276,28 @@ public class DoublyLinkedList<E> implements List<E>  {
 
 	private DListNode<E> findNode(E element) {
 
-    	DListNode<E> auxNode = head;
-    	while(auxNode != null) {
-    		if (auxNode.getElement().equals(element))
-    			return auxNode;
-    		auxNode = auxNode.getNext();
-		}
+    	for(DListNode<E> auxNode = head; auxNode.getNext() != null; auxNode = auxNode.getNext())
+			if (auxNode.getElement().equals(element))
+				return auxNode;
     	return null;
 	}
 	
 	@Override
 	public Iterator<E> iterator() {
-		return new DoublyLLIterator<>(head, tail);
+		return new DoublyLLIterator<>(head,tail);
 	}
 
-    /* TPC
+    /**
      * Removes all of the elements from the specified list and
      * inserts them at the end of the list (in proper sequence).
      * @param list - list to be appended to the end of this
-     *
+     */
     public void append( DoublyLinkedList<E> list )
     {
         tail.setNext(list.head);
         list.head.setPrevious(tail);
     }
-	*/
+
 
 
 }

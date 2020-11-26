@@ -1,4 +1,4 @@
-import dataStructures.Iterator;
+import dataStructures.*;
 import exceptions.*;
 import group.GroupSafe;
 import mainPackage.ContactNet;

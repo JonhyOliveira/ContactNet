@@ -59,16 +59,12 @@ public class UserClass implements UserInternal {
     }
 
     @Override
-    public Iterator<UserSafe> listContacts() throws NoContacts {
+    public Iterator<UserInternal> listContacts() throws NoContacts {
         List<UserSafe> contactsSafe = new SinglyLinkedList<>();
         if (contacts.size() <= 0)
             throw new NoContacts();
-        Iterator<UserInternal> itInternal = contacts.iterator();
-        while (itInternal.hasNext()) {
-            contactsSafe.addLast(itInternal.next());
-        }
 
-        return contactsSafe.iterator();
+        return contacts.iterator();
     }
 
     @Override

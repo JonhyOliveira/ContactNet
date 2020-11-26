@@ -43,17 +43,12 @@ public class GroupClass implements GroupInternal {
     }
 
     @Override
-    public Iterator<UserSafe> listParticipants() throws NoParticipants {
+    public Iterator<UserInternal> listParticipants() throws NoParticipants {
     	List<UserSafe> participantsSafe = new SinglyLinkedList<>();
         if (participants.size() <= 0)
             throw new NoParticipants();
 
-        Iterator<UserInternal> itInternal = participants.iterator();
-        while(itInternal.hasNext())	{
-        	participantsSafe.addLast(itInternal.next());
-        }
-
-        return participantsSafe.iterator();
+        return participants.iterator();
     }
 
     @Override

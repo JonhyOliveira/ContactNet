@@ -1,8 +1,5 @@
 package dataStructures;
 
-import user.UserInternal;
-import user.UserSafe;
-
 import java.io.Serializable;
 
 /**
