@@ -13,7 +13,7 @@ public class GroupClass implements GroupInternal {
 
     private String name, description;
 
-    private BinarySearchTree<String, UserInternal> participants; //binaryTree
+    private OrderedDictionary<String, UserInternal> participants; //binaryTree
     private List<Message> groupMessages;
 
     public GroupClass(String name, String description) {
