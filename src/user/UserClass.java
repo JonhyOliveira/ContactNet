@@ -59,7 +59,7 @@ public class UserClass implements UserInternal {
     }
 
     @Override
-    public Iterator<Entry<String, UserInternal>> listContacts() throws NoContacts {
+    public Iterator<UserInternal> listContacts() throws NoContacts {
         List<UserSafe> contactsSafe = new SinglyLinkedList<>();
         if (contacts.size() <= 0)
             throw new NoContacts();
