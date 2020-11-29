@@ -392,7 +392,7 @@ public class BinarySearchTree<K extends Comparable<K>, V>
      * which preserves the key order relation.
      * @return  key-order iterator of the entries in the dictionary
      */
-    public Iterator<Entry<K,V>> iterator( ) 
+    public Iterator<Entry<K,V>> iterator()
     {
         return new BSTKeyOrderIterator<>(root);
     }

@@ -13,32 +13,32 @@ public class GroupClass implements GroupInternal {
 
     private String name, description;
 
-    private OrderedSequence<UserInternal> participants;
+    private BinarySearchTree<String, UserInternal> participants; //binaryTree
     private List<Message> groupMessages;
 
     public GroupClass(String name, String description) {
         this.name = name;
         this.description = description;
 
-        participants = new OrderedSequenceClass<>();
+        participants = new BinarySearchTree<>();
         groupMessages = new DoublyLinkedList<>();
     }
 
     @Override
     public void subscribeUser(UserInternal user) throws SubscriptionExists {
-        if (participants.contains(user))
+        if (participants.find(user.getLogin()) != null)
             throw new SubscriptionExists();
 
-        participants.insert(user);
+        participants.insert(user.getLogin(), user);
         user.subscribeGroup(this);
     }
 
     @Override
     public void removeSubscriptionFromUser(UserInternal user) throws SubscriptionNotExists {
-        if (!participants.contains(user))
+        if (participants.find(user.getLogin()) == null)
             throw new SubscriptionNotExists();
 
-        participants.remove(user);
+        participants.remove(user.getLogin());
         user.removeSubscriptionGroup(this);
     }
 
@@ -58,7 +58,7 @@ public class GroupClass implements GroupInternal {
 
     @Override
     public Iterator<Message> listGroupMessages(UserInternal groupMember) throws SubscriptionNotExists, NoGroupMessages {
-        if (!participants.contains(groupMember))
+        if (participants.find(groupMember.getLogin()) == null)
             throw new SubscriptionNotExists();
 
         if (groupMessages.isEmpty())

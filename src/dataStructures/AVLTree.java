@@ -71,11 +71,12 @@ static class AVLNode<K,V> extends BSTNode<K,V> {
        zPos.setHeight();
     // Melhorar se possivel
     while (zPos!=null) {  // traverse up the tree towards the root
-      zPos = (AVLNode<K, V>) zPos.getParent();
-      zPos.setHeight();
+    	
+    	zPos = (AVLNode<K, V>) zPos.getParent();
+    	zPos.setHeight();
       if (!zPos.isBalance()) { 
     	  //perform a trinode restructuring at zPos's tallest grandchild
-    	  //If yPos (tallerChild(zPos)) denote the child of zPos with greater height. 
+    	  //If yPos (tallerChild(zPos)) denote the child of zPos with greater height.
     	  //Finally, let xPos be the child of yPos with greater height
     	  AVLNode<K,V> xPos = zPos.tallerChild().tallerChild();
     	  zPos = (AVLNode<K, V>) restructure(xPos); // tri-node restructure (from parent class)
@@ -93,9 +94,29 @@ static class AVLNode<K,V> extends BSTNode<K,V> {
 public V insert(K key, V value) {
 	//TODO
 	V valueToReturn=null;
-	AVLNode<K,V> newNode=null; // node where the new entry is being inserted (if find(key)==null)
+	AVLNode<K,V> newNode = new AVLNode<K,V>(key, value);
+	AVLNode<K,V> auxNode = (AVLNode<K, V>) root;
+	
+	while(auxNode != null) {
+		
+		if(key < auxNode.getEntry().getKey()) {
+			auxNode = (AVLNode<K, V>) auxNode.getLeft();
+		}else if(key > auxNode.getEntry().getKey()) {
+			auxNode = (AVLNode<K, V>) auxNode.getRight();
+		}else {
+			auxNode.getParent().setValue(value);
+			return value;
+		}
+	}
+	
+	// node where the new entry is being inserted (if find(key)==null)
 	// insert the new Entry (if find(key)==null)
 	// or set the new value (if find(key)!=null)
+	if(auxNode.getParent().getEntry().getKey() > key) {
+		auxNode.getParent().setLeft(new AVLNode<K,V>(key, value));
+	}else if(auxNode.getParent().getEntry().getKey() < key){
+		auxNode.getParent().setRight(new AVLNode<K,V>(key, value));
+	}
 	
 	if(newNode != null) //(if find(key)==null)
 		rebalance(newNode); // rebalance up from the inserted node

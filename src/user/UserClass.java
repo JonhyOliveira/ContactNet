@@ -13,7 +13,7 @@ public class UserClass implements UserInternal {
     private String login, name, address, profession;
     private int age;
 
-    private OrderedSequence<UserInternal> contacts;
+    private BinarySearchTree<String, UserInternal> contacts; //binaryTree
     
     private List<GroupInternal> groups;
     
@@ -26,7 +26,7 @@ public class UserClass implements UserInternal {
         this.address = address;
         this.profession = profession;
 
-        contacts = new OrderedSequenceClass<>();
+        contacts = new BinarySearchTree<>();
         groups = new DoublyLinkedList<>();
         receivedMessages = new DoublyLinkedList<>();
     }
@@ -47,7 +47,7 @@ public class UserClass implements UserInternal {
         if (hasContact(contact) || this.equals(contact))
             throw new ContactExists();
 
-        contacts.insert(contact);
+        contacts.insert(contact.getLogin(), contact);
     }
 
     @Override
@@ -55,11 +55,11 @@ public class UserClass implements UserInternal {
         if (!hasContact(contact))
             throw new ContactNotExists();
 
-        contacts.remove(contact);
+        contacts.remove(contact.getLogin());
     }
 
     @Override
-    public Iterator<UserInternal> listContacts() throws NoContacts {
+    public Iterator<Entry<UserInternal, String>> listContacts() throws NoContacts {
         List<UserSafe> contactsSafe = new SinglyLinkedList<>();
         if (contacts.size() <= 0)
             throw new NoContacts();
