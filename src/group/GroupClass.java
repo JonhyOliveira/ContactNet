@@ -11,9 +11,9 @@ import user.UserSafe;
 
 public class GroupClass implements GroupInternal {
 
-    private String name, description;
+    private final String name, description; // should not be changed
 
-    private OrderedDictionary<String, UserInternal> participants; //binaryTree
+    private OrderedDictionary<String, UserInternal> participants; //BinarySearchTree
     private List<Message> groupMessages;
 
     public GroupClass(String name, String description) {
@@ -21,7 +21,7 @@ public class GroupClass implements GroupInternal {
         this.description = description;
 
         participants = new BinarySearchTree<>();
-        groupMessages = new DoublyLinkedList<>();
+        groupMessages = new SinglyLinkedList<Message>();
     }
 
     @Override
@@ -44,9 +44,14 @@ public class GroupClass implements GroupInternal {
 
     @Override
     public Iterator<UserInternal> listParticipants() throws NoParticipants {
-    	List<UserSafe> participantsSafe = new SinglyLinkedList<>();
-        if (participants.size() <= 0)
+        if (this.participants.size() <= 0)
             throw new NoParticipants();
+
+        List<UserInternal> participants = new SinglyLinkedList<UserInternal>();
+        Iterator<Entry<String, UserInternal>> entryIterator = this.participants.iterator();
+
+        while (entryIterator.hasNext())
+            participants.addLast(entryIterator.next().getValue());
 
         return participants.iterator();
     }

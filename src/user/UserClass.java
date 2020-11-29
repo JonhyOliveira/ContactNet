@@ -59,11 +59,18 @@ public class UserClass implements UserInternal {
     }
 
     @Override
-    public Iterator<Entry<String, UserInternal>> listContacts() throws NoContacts {
-        List<UserSafe> contactsSafe = new SinglyLinkedList<>();
+    public Iterator<UserInternal> listContacts() throws NoContacts {
+//        List<UserSafe> contactsSafe = new SinglyLinkedList<>();
         if (contacts.size() <= 0)
             throw new NoContacts();
-
+        
+        List<UserInternal> contacts = new SinglyLinkedList<UserInternal>();
+        Iterator<Entry<String, UserInternal>> entryIterator = this.contacts.iterator();
+        
+        while(entryIterator.hasNext()) {
+        	contacts.addLast(entryIterator.next().getValue());
+        }
+        
         return contacts.iterator();
     }
 
@@ -71,6 +78,14 @@ public class UserClass implements UserInternal {
     public void insertMessage(Message message) {
 
         // send message to the user contacts
+    	
+        List<UserInternal> contacts = new SinglyLinkedList<UserInternal>();
+        Iterator<Entry<String, UserInternal>> entryIterator = this.contacts.iterator();
+        
+        while(entryIterator.hasNext()) {
+        	contacts.addLast(entryIterator.next().getValue());
+        }
+    	
         Iterator<UserInternal> contactsIt = contacts.iterator();
         while (contactsIt.hasNext()) {
             contactsIt.next().addMessage(message);
@@ -130,6 +145,14 @@ public class UserClass implements UserInternal {
     private boolean hasContact(UserInternal contact) {
         if (this.equals(contact))
             return true;
+        
+
+        List<UserInternal> contacts = new SinglyLinkedList<UserInternal>();
+        Iterator<Entry<String, UserInternal>> entryIterator = this.contacts.iterator();
+        
+        while(entryIterator.hasNext()) {
+        	contacts.addLast(entryIterator.next().getValue());
+        }
 
         Iterator<UserInternal> it = contacts.iterator();
 

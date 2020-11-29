@@ -329,7 +329,7 @@ public class BinarySearchTree<K extends Comparable<K>, V>
 
 	}
 
-	private BSTNode<K, V> findPlaceToInsert(BSTNode<K, V> root, K key) {
+	protected BSTNode<K, V> findPlaceToInsert(BSTNode<K, V> root, K key) {
 
     	if (root.getKey().compareTo(key) > 0 && root.getLeft() != null) // smaller keys are on the left
     		return findPlaceToInsert(root.getLeft(), key);
