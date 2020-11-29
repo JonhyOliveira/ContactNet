@@ -13,7 +13,7 @@ public class UserClass implements UserInternal {
     private String login, name, address, profession;
     private int age;
 
-    private BinarySearchTree<String, UserInternal> contacts; //binaryTree
+    private OrderedDictionary<String, UserInternal> contacts; //binaryTree
     
     private List<GroupInternal> groups;
     
@@ -59,7 +59,7 @@ public class UserClass implements UserInternal {
     }
 
     @Override
-    public Iterator<Entry<UserInternal, String>> listContacts() throws NoContacts {
+    public Iterator<Entry<String, UserInternal>> listContacts() throws NoContacts {
         List<UserSafe> contactsSafe = new SinglyLinkedList<>();
         if (contacts.size() <= 0)
             throw new NoContacts();
