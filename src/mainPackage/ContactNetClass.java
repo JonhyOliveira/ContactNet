@@ -33,7 +33,7 @@ public class ContactNetClass implements ContactNet {
 
     @Override
     public UserSafe showUser(String login) throws UserNotExists {
-        UserInternal user = getUser(login);
+        UserInternal user = getUser(login.toUpperCase());
 
         if (user == null)
            throw new UserNotExists();
@@ -186,45 +186,13 @@ public class ContactNetClass implements ContactNet {
     }
 
     private UserInternal getUser(String login){
-    	
-    	List<UserInternal> users = new SinglyLinkedList<UserInternal>();
-        Iterator<Entry<String, UserInternal>> entryIterator = this.users.iterator();
-        
-        while(entryIterator.hasNext()) {
-        	users.addLast(entryIterator.next().getValue());;
-        }
-        
-        Iterator<UserInternal> it = users.iterator();
 
-        UserInternal next;
-        while (it.hasNext()) {
-            next = it.next();
-            if (next.getLogin().equals(login))
-                return next;
-        }
-
-        return null;
+        return users.find(login);
     }
 
     private GroupInternal getGroup(String name) {
     	
-    	List<GroupInternal> groups = new SinglyLinkedList<GroupInternal>();
-        Iterator<Entry<String, GroupInternal>> entryIterator = this.groups.iterator();
-        
-        while(entryIterator.hasNext()) {
-        	groups.addLast(entryIterator.next().getValue());
-        }
-        
-        Iterator<GroupInternal> it = groups.iterator();
-
-        GroupInternal next;
-        while (it.hasNext()) {
-            next = it.next();
-            if (next.getGroupName().equals(name))
-                return next;
-        }
-
-        return null;
+    	return groups.find(name);
     }
 
     /**

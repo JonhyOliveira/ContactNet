@@ -188,6 +188,7 @@ public class DoublyLinkedList<E> implements List<E>  {
 			head = head.getNext();
 			head.setPrevious(null);
 		}
+		currentSize--;
     }
 
 
@@ -214,6 +215,7 @@ public class DoublyLinkedList<E> implements List<E>  {
     		tail = tail.getPrevious();
     		tail.setNext(null);
 		}
+    	currentSize--;
     }
 
 
@@ -237,11 +239,13 @@ public class DoublyLinkedList<E> implements List<E>  {
     {
       	node.getPrevious().setNext(node.getNext());
       	node.getNext().setPrevious(node.getPrevious());
+      	currentSize--;
     }
     
 	private E removeMiddle(int position) {
 		DListNode<E> nodeToRemove = this.getNode(position);
 		this.removeMiddleNode(nodeToRemove);
+
 		return nodeToRemove.getElement();
 	}
 

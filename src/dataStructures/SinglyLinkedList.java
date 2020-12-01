@@ -69,7 +69,7 @@ public class SinglyLinkedList<E> implements List<E> {
 
 	@Override
 	public Iterator<E> iterator() throws NoElementException {
-		return new SinglyLLIterator<E>(head);
+		return new SinglyLLIterator<>(head);
 	}
 
 	@Override
@@ -134,14 +134,22 @@ public class SinglyLinkedList<E> implements List<E> {
 
 	@Override
 	public void add(int position, E element) throws InvalidPositionException {
-		if (position < 0 || position >= size())
+		if (position < 0 || position > size()) // if position == size() insert at the end
 			throw new InvalidPositionException();
 
-		SListNode<E> auxNode = head;
-		for (int i = 0; i < position - 1; i++)
-			auxNode = auxNode.getNext();
+		if (position == 0)
+			addFirst(element);
+		else if (position == size())
+			addLast(element);
+		else {
+			SListNode<E> auxNode = head;
+			for (int i = 0; i < position - 1; i++)
+				auxNode = auxNode.getNext();
 
-		auxNode.setNext(new SListNode<>(element, auxNode.getNext()));
+			auxNode.setNext(new SListNode<>(element, auxNode.getNext()));
+		}
+
+
 		currentSize++;
 	}
 
@@ -181,13 +189,27 @@ public class SinglyLinkedList<E> implements List<E> {
 		if (position < 0 || position >= size())
 			throw new InvalidPositionException();
 
-		SListNode<E> prevNode = head;
-		for (int i = 0; i<position; i++, prevNode = prevNode.getNext());
-		SListNode<E> nextNode = prevNode.getNext().getNext();
+		E element;
 
-		E element = prevNode.getNext().getElement();
 
-		prevNode.setNext(nextNode);
+
+		if (position == 0) { // remove head (handles case where currentSize = 1)
+			element = head.getElement();
+			head = head.getNext();
+		}
+		else { // remove other
+
+			SListNode<E> prevNode = head;
+			for (int i = 0; i<position; i++, prevNode = prevNode.getNext()); // go up to the node before the one we want to land on
+
+			SListNode<E> nextNode = prevNode.getNext().getNext();
+
+			element = prevNode.getNext().getElement();
+
+			prevNode.setNext(nextNode);
+		}
+
+		currentSize--;
 		return element;
 	}
 

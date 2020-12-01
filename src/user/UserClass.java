@@ -64,7 +64,7 @@ public class UserClass implements UserInternal {
         if (contacts.size() <= 0)
             throw new NoContacts();
         
-        List<UserInternal> contacts = new SinglyLinkedList<UserInternal>();
+        List<UserInternal> contacts = new SinglyLinkedList<>();
         Iterator<Entry<String, UserInternal>> entryIterator = this.contacts.iterator();
         
         while(entryIterator.hasNext()) {
@@ -78,30 +78,17 @@ public class UserClass implements UserInternal {
     public void insertMessage(Message message) {
 
         // send message to the user contacts
-    	
-        List<UserInternal> contacts = new SinglyLinkedList<UserInternal>();
-        Iterator<Entry<String, UserInternal>> entryIterator = this.contacts.iterator();
-        
-        while(entryIterator.hasNext()) {
-        	contacts.addLast(entryIterator.next().getValue());
+        Iterator<Entry<String, UserInternal>> userIterator = this.contacts.iterator();
+
+        while(userIterator.hasNext()) {
+        	userIterator.next().getValue().addMessage(message);
         }
-    	
-        Iterator<UserInternal> contactsIt = contacts.iterator();
-        while (contactsIt.hasNext()) {
-            contactsIt.next().addMessage(message);
-        }
+
         // send message to the user groups
+        Iterator<Entry<String, GroupInternal>> groupIterator = this.groups.iterator();
         
-        List<GroupInternal> groups = new SinglyLinkedList<GroupInternal>();
-        Iterator<Entry<String, GroupInternal>> entryIterator2 = this.groups.iterator();
-        
-        while(entryIterator2.hasNext()) {
-        	groups.addLast(entryIterator2.next().getValue());
-        }
-        
-        Iterator<GroupInternal> groupsIt = groups.iterator();
-        while (groupsIt.hasNext()) {
-            groupsIt.next().addMessage(message);
+        while(groupIterator.hasNext()) {
+        	groupIterator.next().getValue().addMessage(message);
         }
 
         // add message to the user messages
@@ -155,7 +142,7 @@ public class UserClass implements UserInternal {
             return true;
         
 
-        List<UserInternal> contacts = new SinglyLinkedList<UserInternal>();
+        List<UserInternal> contacts = new SinglyLinkedList<>();
         Iterator<Entry<String, UserInternal>> entryIterator = this.contacts.iterator();
         
         while(entryIterator.hasNext()) {
