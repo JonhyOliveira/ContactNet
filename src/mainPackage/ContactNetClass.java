@@ -13,12 +13,12 @@ import dataStructures.*;
 
 public class ContactNetClass implements ContactNet {
 
-    List<UserInternal> users;
-    List<GroupInternal> groups;
+    Dictionary<String, UserInternal> users; //ChainedHashTable
+    Dictionary<String, GroupInternal> groups; //ChainedHashTable
 
     public ContactNetClass() {
-        users = new DoublyLinkedList<>();
-        groups = new DoublyLinkedList<>();
+        users = new ChainedHashTable<>();
+        groups = new ChainedHashTable<>();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class ContactNetClass implements ContactNet {
         if (getUser(login) != null)
             throw new UserExists();
         else
-            users.addFirst(newUser);
+            users.insert(newUser.getLogin(), newUser);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class ContactNetClass implements ContactNet {
         if (getGroup(group) != null)
             throw new GroupExists();
 
-        groups.addFirst(newGroup);
+        groups.insert(newGroup.getGroupName(), newGroup);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class ContactNetClass implements ContactNet {
         if (grp == null)
             throw new GroupNotExists();
 
-        groups.remove(grp);
+        groups.remove(grp.getGroupName());
     }
 
     @Override
@@ -186,6 +186,14 @@ public class ContactNetClass implements ContactNet {
     }
 
     private UserInternal getUser(String login){
+    	
+    	List<UserInternal> users = new SinglyLinkedList<UserInternal>();
+        Iterator<Entry<String, UserInternal>> entryIterator = this.users.iterator();
+        
+        while(entryIterator.hasNext()) {
+        	users.addLast(entryIterator.next().getValue());;
+        }
+        
         Iterator<UserInternal> it = users.iterator();
 
         UserInternal next;
@@ -199,6 +207,14 @@ public class ContactNetClass implements ContactNet {
     }
 
     private GroupInternal getGroup(String name) {
+    	
+    	List<GroupInternal> groups = new SinglyLinkedList<GroupInternal>();
+        Iterator<Entry<String, GroupInternal>> entryIterator = this.groups.iterator();
+        
+        while(entryIterator.hasNext()) {
+        	groups.addLast(entryIterator.next().getValue());
+        }
+        
         Iterator<GroupInternal> it = groups.iterator();
 
         GroupInternal next;

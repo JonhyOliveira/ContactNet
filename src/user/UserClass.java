@@ -13,11 +13,11 @@ public class UserClass implements UserInternal {
     private String login, name, address, profession;
     private int age;
 
-    private OrderedDictionary<String, UserInternal> contacts; //binaryTree
+    private OrderedDictionary<String, UserInternal> contacts;
     
-    private List<GroupInternal> groups;
+    private Dictionary<String, GroupInternal> groups; //ChainedHashTable
     
-    private List<Message> receivedMessages;
+    private List<Message> receivedMessages; // Needs to be a list because we need to keep the order of insertion
 
     public UserClass(String login, String name, int age, String address, String profession) {
         this.login = login;
@@ -27,18 +27,18 @@ public class UserClass implements UserInternal {
         this.profession = profession;
 
         contacts = new BinarySearchTree<>();
-        groups = new DoublyLinkedList<>();
+        groups = new ChainedHashTable<>();
         receivedMessages = new DoublyLinkedList<>();
     }
 
     @Override
     public void subscribeGroup(GroupInternal group) {
-        groups.addFirst(group);
+        groups.insert(group.getGroupName(), group);
     }
 
     @Override
     public void removeSubscriptionGroup(GroupInternal group) {
-        groups.remove(group);
+        groups.remove(group.getGroupName());
     }
 
     @Override
@@ -91,6 +91,14 @@ public class UserClass implements UserInternal {
             contactsIt.next().addMessage(message);
         }
         // send message to the user groups
+        
+        List<GroupInternal> groups = new SinglyLinkedList<GroupInternal>();
+        Iterator<Entry<String, GroupInternal>> entryIterator2 = this.groups.iterator();
+        
+        while(entryIterator2.hasNext()) {
+        	groups.addLast(entryIterator2.next().getValue());
+        }
+        
         Iterator<GroupInternal> groupsIt = groups.iterator();
         while (groupsIt.hasNext()) {
             groupsIt.next().addMessage(message);

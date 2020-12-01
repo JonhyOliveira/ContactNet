@@ -13,8 +13,9 @@ public class GroupClass implements GroupInternal {
 
     private final String name, description; // should not be changed
 
-    private OrderedDictionary<String, UserInternal> participants; //BinarySearchTree
-    private List<Message> groupMessages;
+    private OrderedDictionary<String, UserInternal> participants;
+    
+    private List<Message> groupMessages; // Needs to be a list because we need to keep the order of insertion
 
     public GroupClass(String name, String description) {
         this.name = name;
