@@ -352,7 +352,27 @@ public class BinarySearchTree<K extends Comparable<K>, V>
 			// pick not null child
 			switch (numChildren(nodeToRemove)) {
 
-				case 0, 1: {
+				case 0: {
+					// if left is not null choose left if it is null choose right (if leaf right is null)
+					boolean hasLeftChild = nodeToRemove.getLeft() != null;
+					BSTNode<K, V> child = hasLeftChild ? nodeToRemove.getLeft() : nodeToRemove.getRight();
+					BSTNode<K, V> parent = nodeToRemove.getParent();
+					if (nodeToRemove == root) {
+						root = child; // only child
+					}
+					else {
+
+						if (parent.getLeft() == nodeToRemove)
+							parent.setLeft(child); // parent not null (not root)
+						else
+							parent.setRight(child);
+					}
+
+					if (child != null) // child could be null if nodeToRemove is leaf
+						child.setParent(parent); // if root just sets to null like it should be
+					break;
+				}
+				case 1: {
 					// if left is not null choose left if it is null choose right (if leaf right is null)
 					boolean hasLeftChild = nodeToRemove.getLeft() != null;
 					BSTNode<K, V> child = hasLeftChild ? nodeToRemove.getLeft() : nodeToRemove.getRight();

@@ -92,64 +92,59 @@ public class AVLTree <K extends Comparable<K>,V>
 
 	@Override
 	public V insert(K key, V value) {
-
-		V valueToReturn = null;
-
-		if (root == null) { // if the tree is empty
-			root = new AVLNode<>(key, value);
-			currentSize++;
-		}
-
-		AVLNode<K,V> placeToInsert = (AVLNode<K, V>) findPlaceToInsert(root, key), newNode = null;
-
-		if (placeToInsert.getKey().equals(key)) {
-			valueToReturn = placeToInsert.getValue();
-			placeToInsert.setValue(value);
-
-		}
-		else {
-			newNode = new AVLNode<>(key, value, placeToInsert, null, null);
-			if (placeToInsert.getKey().compareTo(key) > 0) // if the parent key is greater than the newNode key insert
-				placeToInsert.setLeft(newNode); // newNode on the left of the parent
-			else
-				placeToInsert.setRight(newNode); // if the newNode key is greater insert on the right
-			currentSize++;
-			return null;
-		}
-
-		/*
-		while(auxNode != null) {
-
-			if(key < auxNode.getEntry().getKey()) {
-				auxNode = (AVLNode<K, V>) auxNode.getLeft();
-			}else if(key > auxNode.getEntry().getKey()) {
-				auxNode = (AVLNode<K, V>) auxNode.getRight();
-			}else {
-				auxNode.getParent().setValue(value);
-				return value;
-			}
-		}*/
+		
+		AVLNode<K,V> newNode = (AVLNode<K, V>) findNode(root,key);
+		
+		V valueToReturn = super.insert(key, value);
+		
+		if(newNode != null) // a new node was inserted
+			rebalance(newNode); // rebalance up from the inserted node
+		//rebalance checks if it needs to call restructure
+		return valueToReturn;
+//
+//		if (root == null) { // if the tree is empty
+//			root = new AVLNode<>(key, value);
+//			currentSize++;
+//		}
+//
+//		AVLNode<K,V> placeToInsert = (AVLNode<K, V>) findPlaceToInsert(root, key), newNode = null;
+//
+//		if (placeToInsert.getKey().equals(key)) {
+//			valueToReturn = placeToInsert.getValue();
+//			placeToInsert.setValue(value);
+//
+//		}
+//		else {
+//			newNode = new AVLNode<>(key, value, placeToInsert, null, null);
+//			if (placeToInsert.getKey().compareTo(key) > 0) // if the parent key is greater than the newNode key insert
+//				placeToInsert.setLeft(newNode); // newNode on the left of the parent
+//			else
+//				placeToInsert.setRight(newNode); // if the newNode key is greater insert on the right
+//			currentSize++;
+//			return null;
+//		}
 
 		// node where the new entry is being inserted (if find(key)==null)
 		// insert the new Entry (if find(key)==null)
 		// or set the new value (if find(key)!=null)
 
-		if(newNode != null) // a new node was inserted
-			rebalance(newNode); // rebalance up from the inserted node
-		//rebalance checks if it needs to call restructure
-		return valueToReturn;
+		
 	}
 
 
 	@Override
 	public V remove(K key) {
 		// TODO
-		V valueToReturn=null;
-		AVLNode<K,V> node=null; // father of node where the key was deleted
+		
+		AVLNode<K,V> nodeToRemove = (AVLNode<K, V>)findNode(root, key);
+		AVLNode<K,V> parentNode = (AVLNode<K, V>) nodeToRemove.getParent(); // father of node where the key was deleted
+		
+		V valueToReturn = super.remove(key); //the value of the removed node
 
-		if(node != null) //(if find(key)==null)
-			rebalance(node); // rebalance up from the node
+		if(parentNode != null) //(if find(key)==null)
+			rebalance(parentNode); // rebalance up from the node
 		return valueToReturn;
+		
 	}
 
 }
