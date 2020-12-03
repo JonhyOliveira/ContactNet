@@ -1,4 +1,6 @@
-package dataStructures;  
+package dataStructures;
+
+import exceptions.EmptyDictionaryException;
 
 /**
  * Ordered Dictionary interface

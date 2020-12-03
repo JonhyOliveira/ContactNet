@@ -11,14 +11,19 @@ import user.UserInternal;
 import user.UserSafe;
 import dataStructures.*;
 
+/**
+ * ContactNet implementation using dictionaries for fast access
+ * @author Joao Oliveira 58001 & Rafel Borralho 58349
+ * @version final
+ */
 public class ContactNetClass implements ContactNet {
 
-    Dictionary<String, UserInternal> users; //ChainedHashTable
-    Dictionary<String, GroupInternal> groups; //ChainedHashTable
+    Dictionary<String, UserInternal> users; //AVL Tree
+    Dictionary<String, GroupInternal> groups; //AVL Tree
 
     public ContactNetClass() {
-        users = new ChainedHashTable<>();
-        groups = new ChainedHashTable<>();
+        users = new AVLTree<>();
+        groups = new AVLTree<>();
     }
 
     @Override

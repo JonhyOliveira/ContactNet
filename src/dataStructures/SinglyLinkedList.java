@@ -1,11 +1,13 @@
 package dataStructures;
 
+import exceptions.InvalidPositionException;
+import exceptions.NoElementException;
+
 /**
  * Singly linked list Implementation 
- * @author AED  Team
+ * @author AED Team
  * @version 1.0
  * @param <E> Generic Element
- * 
  */
 public class SinglyLinkedList<E> implements List<E> {
 
@@ -56,6 +58,10 @@ public class SinglyLinkedList<E> implements List<E> {
 	// Number of elements in the list.
 	protected int currentSize;
 
+	public SinglyLinkedList() {
+		head = tail = null;
+		currentSize = 0;
+	}
 
 	@Override
 	public boolean isEmpty() {
@@ -190,8 +196,6 @@ public class SinglyLinkedList<E> implements List<E> {
 			throw new InvalidPositionException();
 
 		E element;
-
-
 
 		if (position == 0) { // remove head (handles case where currentSize = 1)
 			element = head.getElement();

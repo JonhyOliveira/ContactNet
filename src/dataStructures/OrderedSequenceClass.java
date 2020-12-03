@@ -1,5 +1,11 @@
 package dataStructures;
 
+/**
+ * Implementation of the OrderedSequence type using a DoublyLinkedList
+ * @author Joao Oliveira 58001 & Rafel Borralho 58349
+ * @version final
+ * @param <E> Generic type element, must extend comparable
+ */
 public class OrderedSequenceClass<E extends Comparable<E>> implements OrderedSequence<E> {
 
     private List<E> sequence;

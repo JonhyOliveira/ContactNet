@@ -1,7 +1,12 @@
 package dataStructures;
 
-import dataStructures.BinarySearchTree.BSTNode;
-
+/**
+ * AVLTree implementation
+ * @author Joao Oliveira 58001 & Rafael Borralho
+ * @version final
+ * @param <K> Generic type Key, must extend comparable
+ * @param <V> Generic type Value
+ */
 public class AVLTree <K extends Comparable<K>,V>
 		extends AdvancedBSTree<K,V> {
 
@@ -69,7 +74,7 @@ public class AVLTree <K extends Comparable<K>,V>
 	protected void rebalance(AVLNode<K,V> zPos) {
 		if(zPos.isInternal())
 			zPos.setHeight();
-		// Melhorar se possivel
+
 		while (zPos!=null) {  // traverse up the tree towards the root
 
 			zPos = (AVLNode<K, V>) zPos.getParent();
@@ -111,9 +116,9 @@ public class AVLTree <K extends Comparable<K>,V>
 		if (nodeToRemove != null)
 			node = (AVLNode<K, V>) nodeToRemove.getParent();
 
-		V valueToReturn=super.remove(key); // the value of the removed node
+		V valueToReturn = super.remove(key); // the value of the removed node
 
-		if(node != null) //(if find(key)==null)
+		if(node != null) // if node was found and is not root (if it is root the tree should remain balanced)
 			rebalance(node); // rebalance up from the node
 		return valueToReturn;
 	}

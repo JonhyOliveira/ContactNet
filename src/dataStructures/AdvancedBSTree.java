@@ -1,5 +1,13 @@
 package dataStructures;
 
+
+/**
+ * Auxiliary class with node rotation methods for implementation of AVLTree
+ * @author Joao Oliveira 58001 & Rafel Borralho 58349
+ * @version final
+ * @param <K> Generic type Key, must extend comparable
+ * @param <V> Generic type Value
+ */
 public class AdvancedBSTree<K extends Comparable<K>, V>
 		extends BinarySearchTree<K,V>{
 
@@ -12,7 +20,6 @@ public class AdvancedBSTree<K extends Comparable<K>, V>
 	 * Node X was a  left  child  of Y before the  rotation,
 	 * then Y becomes the right child of X after the rotation.
 	 * @param Y - root of the rotation
-	 * @pre: Y has a left child
 	 *    Y				X
 	 *   /	turns into:	 \
 	 *  X 				  Y
@@ -44,7 +51,6 @@ public class AdvancedBSTree<K extends Comparable<K>, V>
 	 * Node X was a  right  child  of Y before the  rotation,
 	 * then Y becomes the left child of X after the rotation.
 	 * @param Y - root of the rotation
-	 * @pre: Y has a right child
 	 *    Y				      X
 	 *     \  turns into:	 /
 	 *      X 				Y

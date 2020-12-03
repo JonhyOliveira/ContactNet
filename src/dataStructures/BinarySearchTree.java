@@ -1,9 +1,12 @@
 package dataStructures;
 
+import exceptions.EmptyDictionaryException;
+import exceptions.NoSuchElementException;
+
 /**
  * BinarySearchTree implementation
- * @author AED team
- * @version 1.0
+ * @author AED team & Joao Oliveira 58001 & Rafael Borralho
+ * @version final
  * @param <K> Generic type Key, must extend comparable
  * @param <V> Generic type Value 
  */
@@ -352,33 +355,14 @@ public class BinarySearchTree<K extends Comparable<K>, V>
 			// pick not null child
 			switch (numChildren(nodeToRemove)) {
 
-				case 0: {
-					// if left is not null choose left if it is null choose right (if leaf right is null)
-					boolean hasLeftChild = nodeToRemove.getLeft() != null;
-					BSTNode<K, V> child = hasLeftChild ? nodeToRemove.getLeft() : nodeToRemove.getRight();
-					BSTNode<K, V> parent = nodeToRemove.getParent();
-					if (nodeToRemove == root) {
-						root = child; // only child
-					}
-					else {
-
-						if (parent.getLeft() == nodeToRemove)
-							parent.setLeft(child); // parent not null (not root)
-						else
-							parent.setRight(child);
-					}
-
-					if (child != null) // child could be null if nodeToRemove is leaf
-						child.setParent(parent); // if root just sets to null like it should be
-					break;
-				}
+				case 0:
 				case 1: {
 					// if left is not null choose left if it is null choose right (if leaf right is null)
 					boolean hasLeftChild = nodeToRemove.getLeft() != null;
 					BSTNode<K, V> child = hasLeftChild ? nodeToRemove.getLeft() : nodeToRemove.getRight();
 					BSTNode<K, V> parent = nodeToRemove.getParent();
 					if (nodeToRemove == root) {
-						root = child; // only child
+						root = child; // only child (if 0 childs sets to null)
 					}
 					else {
 
@@ -426,6 +410,7 @@ public class BinarySearchTree<K extends Comparable<K>, V>
 
     	public BSTKeyOrderIterator(BSTNode<K, V> root) {
 			this.root = root;
+			untreatedNodes = new StackClass<>(); // initialization for redundancy
 			this.rewind();
 		}
 

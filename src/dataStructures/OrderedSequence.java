@@ -1,5 +1,12 @@
 package dataStructures;
 
+/**
+ * OrderedSequence Abstract Data Type
+ * Includes description of general methods to be implemented by ordered sequences.
+ * @author Joao Oliveira 58001 & Rafel Borralho 58349
+ * @version final
+ * @param <E> Generic type element, must extend comparable
+ */
 public interface OrderedSequence<E extends Comparable<E>> {
 
     /**

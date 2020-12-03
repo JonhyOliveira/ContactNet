@@ -1,5 +1,11 @@
 package dataStructures;
-
+/**
+ * Implementation of entry list that only stores unique entries
+ * @author Joao Oliveira 58001 & Rafel Borralho 58349
+ * @version final
+ * @param <K> Generic type Key
+ * @param <V> Generic type Value
+ */
 public class CollisionList<K, V> implements Dictionary<K, V> {
 
     private List<Entry<K, V>> entries;

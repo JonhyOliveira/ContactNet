@@ -1,7 +1,10 @@
 package dataStructures;
 
+import exceptions.NoElementException;
+
 public class StackClass<E> extends SinglyLinkedList<E> implements Stack<E> {
 
+    // Stack initializer
     public StackClass() {
         super();
     }

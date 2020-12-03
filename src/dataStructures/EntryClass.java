@@ -1,5 +1,12 @@
 package dataStructures;
 
+/**
+ * Implementation os the Entry data type with a setter for the value
+ * @author Joao Oliveira 58001 & Rafel Borralho 58349
+ * @version final
+ * @param <K> Generic type Key, must extend comparable
+ * @param <V> Generic type Value
+ */
 public class EntryClass<K, V> implements Entry<K, V> {
 
     private K key;
@@ -20,6 +27,9 @@ public class EntryClass<K, V> implements Entry<K, V> {
         return value;
     }
 
+    /**
+     * Sets the value of the entry
+     */
     public void setValue(V value) {
         this.value = value;
     }

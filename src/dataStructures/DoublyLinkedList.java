@@ -1,11 +1,13 @@
 package dataStructures;
 
+import exceptions.InvalidPositionException;
+import exceptions.NoElementException;
+
 /**
  * Doubly linked list Implementation 
- * @author AED  Team
+ * @author AED Team & Joao Oliveira 58001 & Rafael Borralho 58349
  * @version 1.0
  * @param <E> Generic Element
- * 
  */
 public class DoublyLinkedList<E> implements List<E>  {
 
@@ -287,7 +289,7 @@ public class DoublyLinkedList<E> implements List<E>  {
 	}
 	
 	@Override
-	public Iterator<E> iterator() {
+	public TwoWayIterator<E> iterator() {
 		return new DoublyLLIterator<>(head,tail);
 	}
 

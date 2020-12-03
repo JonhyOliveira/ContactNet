@@ -6,6 +6,12 @@ import group.GroupSafe;
 import message.Message;
 import user.UserSafe;
 
+/**
+ * ContactNet Abstract Data Type
+ * Includes description of general methods to be implemented by the ContactNet.
+ * @author AED Team & Joao Oliveira 58001 & Rafel Borralho 58349
+ * @version final
+ */
 public interface ContactNet {
 
     /**
@@ -16,7 +22,6 @@ public interface ContactNet {
      * @param address the user address
      * @param profession the user profession
      * @throws UserExists if a user with the same credential already exists
-     * @pre getUser(login) == null
      */
     void insertUser(String login, String name, int age, String address, String profession)
             throws UserExists;
@@ -25,7 +30,6 @@ public interface ContactNet {
      * @param login the login credential for the user
      * @return the user information
      * @throws UserNotExists if there is no user with the same credential
-     * @pre getUser(login) != null
      */
     UserSafe showUser(String login) throws UserNotExists;
 
@@ -36,7 +40,6 @@ public interface ContactNet {
      * @param login2 other user to create contact
      * @throws UserNotExists if one of the users does not exist
      * @throws ContactExists if the contact between the user with login1 and the user with login2 already exists
-     * @pre getUser(login1) != null && getUser(login2) != null
      */
     void insertContact(String login1, String login2)
             throws UserNotExists, ContactExists;
@@ -49,8 +52,6 @@ public interface ContactNet {
      * @throws UserNotExists     if one of the users does not exist
      * @throws ContactNotExists  if the contact between the user with login1 and the user with login2 does not exist
      * @throws ContactNotRemoved if the contact could not be removed
-     * @pre getUser(login1) != null && getUser(login2) != null
-     * @pre getUser(login1) != getUser(login2)
      */
     void removeContact(String login1, String login2)
             throws UserNotExists, ContactNotExists, ContactNotRemoved;
@@ -60,7 +61,6 @@ public interface ContactNet {
      * @return a lexicographically ordered by login credential iterator of the user's contacts
      * @throws UserNotExists if the user does not exist
      * @throws NoContacts    if the user has no contacts
-     * @pre getUser(login) != null
      */
     Iterator<UserSafe> listContacts(String login)
             throws UserNotExists, NoContacts;
@@ -71,7 +71,6 @@ public interface ContactNet {
      * @param group       name of the group to add
      * @param description description of the group to add
      * @throws GroupExists if a group with the same name already exists
-     * @pre getGroup(group) == null
      */
     void insertGroup(String group, String description) throws GroupExists;
 
@@ -79,7 +78,6 @@ public interface ContactNet {
      * @param group the name of the group to search for
      * @return information on the group
      * @throws GroupNotExists if the group with the group name does not exist
-     * @pre getGroup(group) != null
      */
     GroupSafe showGroup(String group) throws GroupNotExists;
 
@@ -88,7 +86,6 @@ public interface ContactNet {
      *
      * @param group the name of the group to remove
      * @throws GroupNotExists if the group does not exist
-     * @pre getGroup(group) != null
      */
     void removeGroup(String group) throws GroupNotExists;
 
@@ -100,8 +97,6 @@ public interface ContactNet {
      * @throws UserNotExists      if the user does not exist
      * @throws GroupNotExists     if the group does not exist
      * @throws SubscriptionExists if the subscription already exists
-     * @pre getGroup(group) != null
-     * @pre getUser(login) != null
      */
     void subscribeGroup(String login, String group)
             throws UserNotExists, GroupNotExists, SubscriptionExists;
@@ -114,8 +109,6 @@ public interface ContactNet {
      * @throws UserNotExists         if the user does not exist
      * @throws GroupNotExists        if the group does not exist
      * @throws SubscriptionNotExists if the subscription does not already exist
-     * @pre getGroup(group) != null
-     * @pre getUser(user) != null
      */
     void removeSubscription(String login, String group)
             throws UserNotExists, GroupNotExists, SubscriptionNotExists;
@@ -125,7 +118,6 @@ public interface ContactNet {
      * @return a lexicographically ordered by login credential iterator of the group's participants
      * @throws GroupNotExists if the group does not exist
      * @throws NoParticipants if the group has no participants
-     * @pre getGroup(group) != null
      */
     Iterator<UserSafe> listParticipants(String group)
             throws GroupNotExists, NoParticipants;
@@ -138,7 +130,6 @@ public interface ContactNet {
      * @param text  the text of the message
      * @param url   the url of the message
      * @throws UserNotExists if the user does not exist
-     * @pre getUser(login) != null
      */
     void insertMessage(String login, String title, String text, String url)
             throws UserNotExists;
@@ -153,7 +144,6 @@ public interface ContactNet {
      * @throws UserNotExists     if one of the users does not exist
      * @throws ContactNotExists  if the user with login2 is not a contact of the user with login1
      * @throws NoContactMessages if the user does not have messages
-     * @pre getUser(login1) != null && getUser(login2) != null
      */
     Iterator<Message> listContactMessages(String login1, String login2)
             throws UserNotExists, ContactNotExists, NoContactMessages;
@@ -169,8 +159,6 @@ public interface ContactNet {
      * @throws UserNotExists         if the user does not exist
      * @throws SubscriptionNotExists if the subscription does not exist (the user is not a participant)
      * @throws NoGroupMessages       if the group has no messages
-     * @pre getGroup(group) != null 
-     * @pre getUser(user) != null
      */
     Iterator<Message> listGroupMessages(String group, String login)
             throws GroupNotExists, UserNotExists, SubscriptionNotExists, NoGroupMessages;
