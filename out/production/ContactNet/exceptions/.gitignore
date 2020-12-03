@@ -13,3 +13,5 @@
 /UserNotExists.class
 /InvalidPositionException.class
 /NoElementException.class
+/EmptyDictionaryException.class
+/NoSuchElementException.class

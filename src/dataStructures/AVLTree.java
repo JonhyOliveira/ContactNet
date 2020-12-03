@@ -53,8 +53,8 @@ public class AVLTree <K extends Comparable<K>,V>
 		protected AVLNode<K,V> tallerChild()  {
 			AVLNode<K,V> leftChild = (AVLNode<K,V>) this.getLeft();
 			AVLNode<K,V> rightChild = (AVLNode<K,V>) this.getRight();
-			int leftChildHeight  = getHeight((AVLNode<K,V>) leftChild);
-			int rightChildHeight = getHeight((AVLNode<K,V>) rightChild);
+			int leftChildHeight  = getHeight(leftChild);
+			int rightChildHeight = getHeight(rightChild);
 
 			if (leftChildHeight > rightChildHeight)
 				return leftChild;
@@ -75,15 +75,13 @@ public class AVLTree <K extends Comparable<K>,V>
 		if(zPos.isInternal())
 			zPos.setHeight();
 
-		while (zPos!=null) {  // traverse up the tree towards the root
-
-			zPos = (AVLNode<K, V>) zPos.getParent();
+		while (zPos!=null) {
 			zPos.setHeight();
 			if (!zPos.isBalance()) {
 				//perform a trinode restructuring at zPos's tallest grandchild
 				//If yPos (tallerChild(zPos)) denote the child of zPos with greater height.
 				//Finally, let xPos be the child of yPos with greater height
-				AVLNode<K,V> xPos = zPos.tallerChild().tallerChild();
+				AVLNode<K, V> xPos = zPos.tallerChild().tallerChild();
 				zPos = (AVLNode<K, V>) restructure(xPos); // tri-node restructure (from parent class)
 				//note that zPos now may be a different node (the new root of the tri-node)
 
@@ -92,20 +90,45 @@ public class AVLTree <K extends Comparable<K>,V>
 				((AVLNode<K, V>) zPos.getRight()).setHeight();
 				zPos.setHeight();
 			}
+			zPos = (AVLNode<K, V>) zPos.getParent();
 		}
+
+
 	}
 
 	@Override
 	public V insert(K key, V value) {
 
-		AVLNode<K,V> node = (AVLNode<K, V>) findNode(root, key); // check if node exists
+		V valueToReturn = null;
+		AVLNode<K, V> newNode = null;
 
-		V valueToReturn = super.insert(key, value);
-		
-		
-		if (node == null) // if node did not exist before super.insert it should have been added so rebalance
-			rebalance(node); 
-			findNode(root, key);
+		if (root == null) {
+			root = new AVLNode<>(key, value);
+			currentSize++;
+			return null;
+		}
+
+		AVLNode<K, V> parent = (AVLNode<K, V>) findPlaceToInsert(root, key);
+
+		if (!parent.getKey().equals(key)) { // if node does not exist insert
+			newNode = new AVLNode<>(key, value, parent, null, null);
+
+			int compResult = parent.getKey().compareTo(key);
+			if ( compResult < 0 )
+				parent.setLeft(newNode);
+			else
+				parent.setRight(newNode);
+
+			currentSize++;
+		}
+		else { // otherwise update
+			valueToReturn = parent.getValue();
+			parent.setValue(value);
+		}
+
+
+		if (newNode != null) // was inserted a new node
+			rebalance(newNode);
 
 		return valueToReturn;
 	}
@@ -113,10 +136,10 @@ public class AVLTree <K extends Comparable<K>,V>
 
 	@Override
 	public V remove(K key) {
-		AVLNode<K, V> nodeToRemove = (AVLNode<K, V>) findNode(root, key);
-		AVLNode<K,V> node = null; // father of node where the key was deleted
-		if (nodeToRemove != null)
-			node = (AVLNode<K, V>) nodeToRemove.getParent();
+		AVLNode<K,V> node = (AVLNode<K, V>) findNode(root, key); // father of node where the key was deleted
+
+		if (node != null)
+			node = (AVLNode<K, V>) node.getParent();
 
 		V valueToReturn = super.remove(key); // the value of the removed node
 

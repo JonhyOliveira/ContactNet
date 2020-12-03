@@ -22,8 +22,8 @@ public class ContactNetClass implements ContactNet {
     Dictionary<String, GroupInternal> groups; //AVL Tree
 
     public ContactNetClass() {
-        users = new AVLTree<>();
-        groups = new AVLTree<>();
+        users = new BinarySearchTree<>();
+        groups = new BinarySearchTree<>();
     }
 
     @Override

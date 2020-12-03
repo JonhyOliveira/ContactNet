@@ -344,9 +344,6 @@ public class BinarySearchTree<K extends Comparable<K>, V>
     		return root; // key = root.getKey()
 	}
 
-
-	//sugestao: implementar metodo auxiliary replaceParentWithChild(nodeToRemove, child) que poe
-    //pai de noteToRemove a apontar para child (filho de nodeToRemove)
     public V remove (K key) {
     	BSTNode<K,V> nodeToRemove = findNode(root, key);
 	
