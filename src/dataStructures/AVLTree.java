@@ -101,9 +101,11 @@ public class AVLTree <K extends Comparable<K>,V>
 		AVLNode<K,V> node = (AVLNode<K, V>) findNode(root, key); // check if node exists
 
 		V valueToReturn = super.insert(key, value);
-
+		
+		
 		if (node == null) // if node did not exist before super.insert it should have been added so rebalance
-			rebalance((AVLNode<K, V>) findNode(root, key));
+			rebalance(node); 
+			findNode(root, key);
 
 		return valueToReturn;
 	}

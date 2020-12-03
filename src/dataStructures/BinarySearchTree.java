@@ -246,7 +246,7 @@ public class BinarySearchTree<K extends Comparable<K>, V>
         {
             int compResult = key.compareTo( node.getKey() );
             if ( compResult == 0 )
-                return node;                                         
+                return node;         
             else if ( compResult < 0 )
                 return this.findNode(node.getLeft(), key);
             else                                                     
