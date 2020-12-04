@@ -18,12 +18,12 @@ import dataStructures.*;
  */
 public class ContactNetClass implements ContactNet {
 
-    Dictionary<String, UserInternal> users; //AVL Tree
-    Dictionary<String, GroupInternal> groups; //AVL Tree
+    Dictionary<String, UserInternal> users;
+    Dictionary<String, GroupInternal> groups;
 
     public ContactNetClass() {
-        users = new BinarySearchTree<>();
-        groups = new BinarySearchTree<>();
+        users = new ChainedHashTable<>();
+        groups = new ChainedHashTable<>();
     }
 
     @Override

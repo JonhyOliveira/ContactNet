@@ -13,11 +13,11 @@ public class UserClass implements UserInternal {
     private String login, name, address, profession;
     private int age;
 
-    private OrderedDictionary<String, UserInternal> contacts;
+    private OrderedDictionary<String, UserInternal> contacts; // Keep ordered by login
     
-    private Dictionary<String, GroupInternal> groups; //ChainedHashTable
+    private Dictionary<String, GroupInternal> groups; // Fast access
     
-    private List<Message> receivedMessages; // Needs to be a list because we need to keep the order of insertion
+    private List<Message> receivedMessages; // Keep insertion order
 
     public UserClass(String login, String name, int age, String address, String profession) {
         this.login = login;
@@ -26,7 +26,7 @@ public class UserClass implements UserInternal {
         this.address = address;
         this.profession = profession;
 
-        contacts = new BinarySearchTree<>();
+        contacts = new AVLTree<>();
         groups = new ChainedHashTable<>();
         receivedMessages = new DoublyLinkedList<>();
     }

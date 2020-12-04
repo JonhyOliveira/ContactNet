@@ -10,7 +10,7 @@ package dataStructures;
 public class AVLTree <K extends Comparable<K>,V>
 		extends AdvancedBSTree<K,V> {
 
-	static class AVLNode<K,V> extends BSTNode<K,V> {
+	static class AVLNode<K, V> extends BSTNode<K, V> {
 		// Height of the node
 		protected int height;
 
@@ -19,14 +19,13 @@ public class AVLTree <K extends Comparable<K>,V>
 			height = 1;
 		}
 
-		public AVLNode(K key, V value, AVLNode<K,V> parent, AVLNode<K,V> left, AVLNode<K,V> right){
+		public AVLNode(K key, V value, AVLNode<K, V> parent, AVLNode<K, V> left, AVLNode<K, V> right) {
 			super(key, value, parent, left, right);
-			height = 1 + Math.max(getHeight(left),getHeight(right));
+			height = 1 + Math.max(getHeight(left), getHeight(right));
 		}
 
-		protected int getHeight(AVLNode<K,V> node) {
-			//precisamos deste metodo porque node pode ser null
-			if (node==null)
+		protected int getHeight(AVLNode<K, V> node) {
+			if (node == null)
 				return 0;
 			return node.getHeight();
 		}
@@ -36,31 +35,30 @@ public class AVLTree <K extends Comparable<K>,V>
 		}
 
 		public boolean isBalance() {
-			int dif= getHeight((AVLNode<K,V>)this.getLeft()) -
-					getHeight((AVLNode<K,V>)this.getRight());
-			return dif==0 ||dif==-1 ||dif ==1;
+			int dif = getHeight((AVLNode<K, V>) this.getLeft()) -
+					getHeight((AVLNode<K, V>) this.getRight());
+			return dif == 0 || dif == -1 || dif == 1;
 		}
 
 		public int setHeight() {
-			height= 1 + Math.max(getHeight((AVLNode<K,V>)this.getLeft()),
-					getHeight((AVLNode<K,V>)this.getRight()));
+			height = 1 + Math.max(getHeight((AVLNode<K, V>) this.getLeft()),
+					getHeight((AVLNode<K, V>) this.getRight()));
 			return height;
 		}
 
 		/**
 		 * Return the child with greater height
 		 */
-		protected AVLNode<K,V> tallerChild()  {
-			AVLNode<K,V> leftChild = (AVLNode<K,V>) this.getLeft();
-			AVLNode<K,V> rightChild = (AVLNode<K,V>) this.getRight();
-			int leftChildHeight  = getHeight(leftChild);
+		protected AVLNode<K, V> tallerChild() {
+			AVLNode<K, V> leftChild = (AVLNode<K, V>) this.getLeft();
+			AVLNode<K, V> rightChild = (AVLNode<K, V>) this.getRight();
+			int leftChildHeight = getHeight(leftChild);
 			int rightChildHeight = getHeight(rightChild);
 
-			if (leftChildHeight > rightChildHeight)
+			if (leftChildHeight >= rightChildHeight)
 				return leftChild;
-			else if (leftChildHeight < rightChildHeight)
+			else
 				return rightChild;
-			return null;
 		}
 	}
 
@@ -71,30 +69,33 @@ public class AVLTree <K extends Comparable<K>,V>
 	 * and perform a trinode restructuring if it's unbalanced.
 	 * the rebalance is completed with O(log n)running time
 	 */
-	protected void rebalance(AVLNode<K,V> zPos) {
-		if(zPos.isInternal())
+	protected void rebalance(AVLNode<K, V> zPos) {
+		if (zPos.isInternal())
 			zPos.setHeight();
-
-		while (zPos!=null) {
+		// Melhorar se possivel
+		while (zPos.getParent() != null) {  // traverse up the tree towards the root
+			zPos = (AVLNode<K, V>) zPos.getParent();
 			zPos.setHeight();
 			if (!zPos.isBalance()) {
 				//perform a trinode restructuring at zPos's tallest grandchild
 				//If yPos (tallerChild(zPos)) denote the child of zPos with greater height.
 				//Finally, let xPos be the child of yPos with greater height
 				AVLNode<K, V> xPos = zPos.tallerChild().tallerChild();
-				zPos = (AVLNode<K, V>) restructure(xPos); // tri-node restructure (from parent class)
-				//note that zPos now may be a different node (the new root of the tri-node)
+
+				AVLNode<K, V> newZ = (AVLNode<K, V>) restructure(xPos); // balanced (sub)tree from tri-node restructure
+
+				if (zPos == root) // if the root was unbalanced it should have suffered a rotation and is no
+					root = newZ; // longer the actual root
+				zPos = newZ;
 
 				// recompute heights for these 3 nodes
 				((AVLNode<K, V>) zPos.getLeft()).setHeight();
 				((AVLNode<K, V>) zPos.getRight()).setHeight();
 				zPos.setHeight();
 			}
-			zPos = (AVLNode<K, V>) zPos.getParent();
 		}
-
-
 	}
+
 
 	@Override
 	public V insert(K key, V value) {
@@ -110,20 +111,19 @@ public class AVLTree <K extends Comparable<K>,V>
 
 		AVLNode<K, V> parent = (AVLNode<K, V>) findPlaceToInsert(root, key);
 
-		if (!parent.getKey().equals(key)) { // if node does not exist insert
-			newNode = new AVLNode<>(key, value, parent, null, null);
-
-			int compResult = parent.getKey().compareTo(key);
-			if ( compResult < 0 )
-				parent.setLeft(newNode);
-			else
-				parent.setRight(newNode);
-
-			currentSize++;
-		}
-		else { // otherwise update
+		if (parent.getKey().equals(key)) { // if node exists update
 			valueToReturn = parent.getValue();
 			parent.setValue(value);
+		}
+		else { // otherwise insert new node
+			newNode = new AVLNode<>(key, value, parent, null, null);
+
+			if (parent.getKey().compareTo(key) > 0) // if the parent key is greater than the newNode key insert
+				parent.setLeft(newNode); // newNode on the left of the parent
+			else
+				parent.setRight(newNode); // if the newNode key is greater insert on the right
+			currentSize++;
+
 		}
 
 
@@ -136,15 +136,16 @@ public class AVLTree <K extends Comparable<K>,V>
 
 	@Override
 	public V remove(K key) {
-		AVLNode<K,V> node = (AVLNode<K, V>) findNode(root, key); // father of node where the key was deleted
 
+		AVLNode<K, V> node = (AVLNode<K, V>) findNode(root, key), parentNode = null;
 		if (node != null)
-			node = (AVLNode<K, V>) node.getParent();
+			parentNode = (AVLNode<K, V>) node.getParent();
 
-		V valueToReturn = super.remove(key); // the value of the removed node
+		V valueToReturn = super.remove(key);
 
-		if(node != null) // if node was found and is not root (if it is root the tree should remain balanced)
-			rebalance(node); // rebalance up from the node
+		if (parentNode != null)
+			rebalance(parentNode);
+
 		return valueToReturn;
 	}
 

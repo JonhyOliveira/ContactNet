@@ -11,18 +11,18 @@ import user.UserSafe;
 
 public class GroupClass implements GroupInternal {
 
-    private final String name, description; // should not be changed
+    private String name, description;
 
-    private OrderedDictionary<String, UserInternal> participants;
+    private OrderedDictionary<String, UserInternal> participants; // Keep ordered by login
     
-    private List<Message> groupMessages; // Needs to be a list because we need to keep the order of insertion
+    private List<Message> groupMessages; // Keep insertion order
 
     public GroupClass(String name, String description) {
         this.name = name;
         this.description = description;
 
-        participants = new BinarySearchTree<>();
-        groupMessages = new SinglyLinkedList<Message>();
+        participants = new AVLTree<>();
+        groupMessages = new SinglyLinkedList<>();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class GroupClass implements GroupInternal {
         if (this.participants.size() <= 0)
             throw new NoParticipants();
 
-        List<UserInternal> participants = new SinglyLinkedList<UserInternal>();
+        List<UserInternal> participants = new SinglyLinkedList<>();
         Iterator<Entry<String, UserInternal>> entryIterator = this.participants.iterator();
 
         while (entryIterator.hasNext())
