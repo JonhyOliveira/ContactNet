@@ -104,7 +104,7 @@ public class ChainedHashTable<K extends Comparable<K>, V>
     @Override
     public Iterator<Entry<K,V>> iterator( )
     {
-        List<Entry<K, V>> entries = new DoublyLinkedList<>();
+        List<Entry<K, V>> entries = new SinglyLinkedList<>();
         int current = 0;
         for (int i = 0; i < table.length; i++) {
             Iterator<Entry<K, V>> entryIterator = table[i].iterator();

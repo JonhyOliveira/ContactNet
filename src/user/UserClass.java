@@ -28,7 +28,7 @@ public class UserClass implements UserInternal {
 
         contacts = new AVLTree<>();
         groups = new ChainedHashTable<>();
-        receivedMessages = new DoublyLinkedList<>();
+        receivedMessages = new SinglyLinkedList<>();
     }
 
     @Override

@@ -11,7 +11,7 @@ public class CollisionList<K, V> implements Dictionary<K, V> {
     private List<Entry<K, V>> entries;
 
     public CollisionList() {
-        entries = new DoublyLinkedList<>();
+        entries = new SinglyLinkedList<>();
     }
 
     @Override
@@ -43,13 +43,13 @@ public class CollisionList<K, V> implements Dictionary<K, V> {
         V valueFound = find(key);
         Entry<K, V> newEntry = new EntryClass<>(key, value);
 
-        if (valueFound != null) {
-            int pos = entries.find(newEntry);
+        if (valueFound != null) { // if entry already exists replace
+            int pos = entries.find(newEntry); // find entry with same reference
             entries.remove(pos);
             entries.add(pos, newEntry);
         }
-        else
-            entries.addLast(newEntry);
+        else // if not found insert
+            entries.addFirst(newEntry);
 
         return valueFound;
     }
