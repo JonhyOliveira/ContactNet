@@ -8,6 +8,11 @@ import exceptions.NoContacts;
 import group.GroupInternal;
 import message.Message;
 
+/**
+ * UserInternal implementation using data structures optimized for expected most common operations and requisites
+ * @author Joao Oliveira 58001 & Rafel Borralho 58349
+ * @version final
+ */
 public class UserClass implements UserInternal {
 
     private String login, name, address, profession;

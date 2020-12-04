@@ -1,5 +1,10 @@
 package message;
 
+/**
+ * Basic Message implementation
+ * @author Joao Oliveira 58001 & Rafel Borralho 58349
+ * @version final
+ */
 public class MessageClass implements Message {
 
     private String title, text, URL;

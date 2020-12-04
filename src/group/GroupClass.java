@@ -9,6 +9,11 @@ import message.Message;
 import user.UserInternal;
 import user.UserSafe;
 
+/**
+ * GroupInternal implementation using data structures optimized for expected most common operations and requisites
+ * @author Joao Oliveira 58001 & Rafel Borralho 58349
+ * @version final
+ */
 public class GroupClass implements GroupInternal {
 
     private String name, description;

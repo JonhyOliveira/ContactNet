@@ -3,17 +3,13 @@ package dataStructures;
 
 /**
  * Auxiliary class with node rotation methods for implementation of AVLTree
- * @author Joao Oliveira 58001 & Rafel Borralho 58349
+ * @author Joao Oliveira 58001 & Rafel Borralho 58349 & AED Team
  * @version final
  * @param <K> Generic type Key, must extend comparable
  * @param <V> Generic type Value
  */
 public class AdvancedBSTree<K extends Comparable<K>, V>
 		extends BinarySearchTree<K,V>{
-
-	// Metodos comuns a arvores binarias de pesquisa auto-equilibradas.
-	// Operacoes basicas para alterar a forma da arvore tratando
-	// de reduzir a sua altura.
 
 	/**
 	 * Performs a single right rotation rooted at Y node.

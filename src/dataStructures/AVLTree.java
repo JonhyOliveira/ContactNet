@@ -72,7 +72,6 @@ public class AVLTree <K extends Comparable<K>,V>
 	protected void rebalance(AVLNode<K, V> zPos) {
 		if (zPos.isInternal())
 			zPos.setHeight();
-		// Melhorar se possivel
 		while (zPos.getParent() != null) {  // traverse up the tree towards the root
 			zPos = (AVLNode<K, V>) zPos.getParent();
 			zPos.setHeight();

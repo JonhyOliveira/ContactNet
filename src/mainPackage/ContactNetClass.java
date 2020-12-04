@@ -12,14 +12,14 @@ import user.UserSafe;
 import dataStructures.*;
 
 /**
- * ContactNet implementation using dictionaries for fast access
+ * ContactNet implementation using hashtables to store user and group data for optimized access speed
  * @author Joao Oliveira 58001 & Rafel Borralho 58349
  * @version final
  */
 public class ContactNetClass implements ContactNet {
 
-    Dictionary<String, UserInternal> users;
-    Dictionary<String, GroupInternal> groups;
+    Dictionary<String, UserInternal> users; // fast access
+    Dictionary<String, GroupInternal> groups; // fast access
 
     public ContactNetClass() {
         users = new ChainedHashTable<>();
